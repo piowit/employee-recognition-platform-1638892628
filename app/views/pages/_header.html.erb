@@ -1,0 +1,24 @@
+<nav class="navbar navbar-dark bg-primary navbar-expand-md bg-faded justify-content-center">
+    <div class="container">
+
+        <%= link_to 'ERP-app', root_path, class:"navbar-brand d-flex w-50 me-auto" %>
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+                <% unless employee_signed_in? %>
+                <li class="nav-item">
+                    <%= link_to "Sign Up", new_employee_registration_path, class:"nav-link"%>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Sign In", new_employee_session_path, class:"nav-link"%>
+                </li>
+                <% else %>
+                <li class="nav-item">
+                    <%= link_to "Sign Out", destroy_employee_session_path, method: :delete, class:"nav-link"%>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Edit Profile", edit_employee_registration_path, class:"nav-link"%>
+                </li>
+                <% end %>   
+            </ul>
+        </div>
+    </div>
+</nav>
