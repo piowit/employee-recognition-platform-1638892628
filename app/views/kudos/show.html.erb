@@ -11,8 +11,15 @@
 </p>
 
 <p>
-  <strong>Employee:</strong>
-  <%= @kudo.employee_id %>
+  <strong>Giver:</strong>
+  <% @kudo.employee_id %>
+  <%= @kudo.giver_email %>
+</p>
+
+<p>
+  <strong>Receiver:</strong>
+  <% @kudo.receiver_id %>
+  <%= @kudo.receiver_email %>
 </p>
 
 <%= link_to 'Edit', edit_kudo_path(@kudo) %> |

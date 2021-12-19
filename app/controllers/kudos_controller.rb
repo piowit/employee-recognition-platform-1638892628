@@ -54,6 +54,6 @@ class KudosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def kudo_params
-      params.require(:kudo).permit(:title, :content, :employee_id)
+      params.require(:kudo).permit(:title, :content, :employee_id, :receiver_id)
     end
 end
