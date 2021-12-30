@@ -3,7 +3,7 @@
 class KudosController < ApplicationController
   before_action :set_kudo, only: %i[show edit update destroy]
   before_action :authenticate_employee!
-  before_action :correct_employee, only: %i[edit update destroy]
+  before_action :check_kudo_giver, only: %i[edit update destroy]
 
   # GET /kudos
   def index
@@ -47,9 +47,8 @@ class KudosController < ApplicationController
     redirect_to kudos_url, notice: 'Kudo was successfully destroyed.'
   end
 
-  def correct_employee
-    @kudo = current_employee.given_kudos.find_by(id: params[:id])
-    redirect_to kudos_path, notice: 'Not auth to edit this kudo' if @kudo.nil?
+  def check_kudo_giver
+    redirect_to kudos_path, notice: 'You are not authorized to edit this kudo.' unless @kudo.giver_of_kudo == current_employee
   end
 
   private
