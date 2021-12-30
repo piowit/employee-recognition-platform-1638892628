@@ -21,6 +21,8 @@
   <% @kudo.receiver_id %>
   <%= @kudo.receiver_email %>
 </p>
-
-<%= link_to 'Edit', edit_kudo_path(@kudo) %> |
+<% if @kudo.giver_email == current_employee.email %>
+  <%= link_to 'Edit', edit_kudo_path(@kudo) %> |
+  <%= link_to 'Destroy', @kudo, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
 <%= link_to 'Back', kudos_path %>
