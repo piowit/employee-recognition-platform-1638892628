@@ -3,8 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Kudo test', type: :system do
+  before do
+    driven_by(:rack_test)
+  end
+
   let(:employee2) { build(:employee, email: 'test2@test.com') }
   let(:employee3) { build(:employee, email: 'test3@test.com') }
+  
 
   it 'Setup 2 employees and crud kudo' do
     visit root_path
@@ -38,9 +43,9 @@ RSpec.describe 'Kudo test', type: :system do
     click_button 'Update Kudo'
     expect(page).to have_content 'Another Content Test1'
 
-    accept_confirm do
-      click_link 'Destroy'
-    end
+    # accept_confirm do
+       click_link 'Destroy'
+    # end
     expect(page).to have_content 'Kudo was successfully destroyed'
   end
 end
