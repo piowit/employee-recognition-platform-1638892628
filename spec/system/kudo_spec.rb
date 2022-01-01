@@ -18,7 +18,7 @@ RSpec.describe 'Kudo test', type: :system do
     fill_in 'Password confirmation', with: employee2.password
     click_button 'Sign up'
     expect(page).to have_content 'Welcome! You have signed up successfully.'
-    click_link 'Sign Out'
+    click_link 'Log Out'
     expect(page).to have_content 'Log in'
 
     click_link 'Sign Up'
