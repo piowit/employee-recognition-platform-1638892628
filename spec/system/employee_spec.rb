@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Employee account test' do
+RSpec.describe 'Employee account test', type: :system do
   it 'create user, sign up, log out, log in' do
     visit root_path
     click_link 'Sign Up'

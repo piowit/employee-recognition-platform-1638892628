@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Kudo test' do
+RSpec.describe 'Kudo test', type: :system do
   let(:employee2) { build(:employee, email: 'test2@test.com') }
   let(:employee3) { build(:employee, email: 'test3@test.com') }
 
