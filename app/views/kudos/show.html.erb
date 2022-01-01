@@ -13,13 +13,13 @@
 <p>
   <strong>Giver:</strong>
   <% @kudo.employee_id %>
-  <%= @kudo.giver_email %>
+  <%= @kudo.giver_of_kudo.email %>
 </p>
 
 <p>
   <strong>Receiver:</strong>
   <% @kudo.receiver_id %>
-  <%= @kudo.receiver_email %>
+  <%= @kudo.receiver_of_kudo.email %>
 </p>
 <% if @kudo.giver_of_kudo == current_employee  %>
   <%= link_to 'Edit', edit_kudo_path(@kudo) %> |
