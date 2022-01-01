@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Employee account test', type: :system do
+  before do
+    driven_by(:rack_test)
+  end
+
   it 'create user, sign up, log out, log in' do
     visit root_path
     click_link 'Sign Up'
