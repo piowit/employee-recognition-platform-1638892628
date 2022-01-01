@@ -9,7 +9,6 @@ RSpec.describe 'Kudo test', type: :system do
 
   let(:employee2) { build(:employee, email: 'test2@test.com') }
   let(:employee3) { build(:employee, email: 'test3@test.com') }
-  
 
   it 'Setup 2 employees and crud kudo' do
     visit root_path
@@ -44,7 +43,7 @@ RSpec.describe 'Kudo test', type: :system do
     expect(page).to have_content 'Another Content Test1'
 
     # accept_confirm do
-       click_link 'Destroy'
+    click_link 'Destroy'
     # end
     expect(page).to have_content 'Kudo was successfully destroyed'
   end
