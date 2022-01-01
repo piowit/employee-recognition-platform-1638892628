@@ -2,25 +2,20 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Employee test' do
-  let(:employee1) { build(:employee) }
-
-  it 'Setup employee acc' do
+RSpec.describe 'Employee account test' do
+  it 'create user, sign up, log out, log in' do
     visit root_path
     click_link 'Sign Up'
-    fill_in 'Email', with: employee1.email
-    fill_in 'Password', with: employee1.password
-    fill_in 'Password confirmation', with: employee1.password
+    fill_in 'Email', with: 'john@doe.com'
+    fill_in 'Password', with: 'testpassword'
+    fill_in 'Password confirmation', with: 'testpassword'
     click_button 'Sign up'
 
     expect(page).to have_content 'Welcome! You have signed up successfully.'
-
     click_link 'Sign Out'
-    expect(page).to have_content 'Log in'
-
     click_link 'Sign In'
-    fill_in 'Email', with: employee1.email
-    fill_in 'Password', with: employee1.password
+    fill_in 'Email', with: 'john@doe.com'
+    fill_in 'Password', with: 'testpassword'
     click_button 'Log in'
     expect(page).to have_content 'Signed in successfully.'
   end
