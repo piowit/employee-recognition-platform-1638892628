@@ -26,3 +26,12 @@ Lint/AmbiguousBlockAssociation:
 
 Style/Documentation:
   Enabled: false
+  
+RSpec/ExampleLength:
+  Exclude: 
+    - spec/system/*
+
+RSpec/MultipleExpectations:
+  Exclude: 
+    - spec/system/* 
+    

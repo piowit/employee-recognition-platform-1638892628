@@ -18,8 +18,8 @@
       <tr>
         <td><%= kudo.title %></td>
         <td><%= kudo.content %></td>
-        <td><%= kudo.giver_email %></td>
-        <td><%= kudo.receiver_email %></td>
+        <td><%= kudo.giver_of_kudo.email %></td>
+        <td><%= kudo.receiver_of_kudo.email %></td>
         <td><%= link_to 'Show', kudo %></td>
         <% if kudo.giver_of_kudo == current_employee %>
           <td><%= link_to 'Edit', edit_kudo_path(kudo) %></td>
