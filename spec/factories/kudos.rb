@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :kudo do
     title { 'Title' }
     content { 'Content' }
-    association :giver_of_kudo, factory: :employee
-    association :receiver_of_kudo, factory: :employee
+    giver_of_kudo
+    receiver_of_kudo
   end
 end
