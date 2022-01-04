@@ -1,7 +1,7 @@
 <%= form_with(model: kudo) do |form| %>
   <% if kudo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(kudo.errors.count, "error") %> prohibited this kudo from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h3><%= pluralize(kudo.errors.count, "error") %> prohibited this kudo from being saved:</h3>
 
       <ul>
         <% kudo.errors.each do |error| %>
@@ -11,28 +11,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title, class: 'form-label' %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= form.label :content, class: 'form-label' %>
+    <%= form.text_area :content, class: 'form-control' %>
   </div>
-
+<br/>
   <div class="field">
-    <%= form.label :employee_id %>
+    <% form.label 'Giver: ', class: 'form-label' %>
     <%= form.text_field :employee_id, value:current_employee.id, type: :hidden %>
-    <%= current_employee.email %>
+    <% current_employee.email %>
   </div>
 
     <div class="field">
-    <%= form.label :receiver_id %>
-    <%= collection_select( :kudo, :receiver_id, Employee.all, :id, :email, {}, {}) %>
+    <%= form.label 'Receiver: ', class: 'form-label' %>
+    <%= collection_select( :kudo, :receiver_id, Employee.all, :id, :email, {}, {:class => 'form-select'}) %>
   </div>
-
+<br/>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-success' %>
   </div>
 <% end %>
