@@ -1,28 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="d-flex w-50 ">
+  <div class="container p-2">
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Kudo</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li><h2><%= @kudo.title %></h2></li>
+              <li><h4><%= @kudo.content %></h4></li>
+              <li>To: <%= @kudo.receiver_of_kudo.email %></li>
+              <li>From: <%= @kudo.giver_of_kudo.email %></li>
+            </ul>
+            
+          </div>
+        </div>
+      </div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @kudo.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @kudo.content %>
-</p>
-
-<p>
-  <strong>Giver:</strong>
-  <% @kudo.employee_id %>
-  <%= @kudo.giver_of_kudo.email %>
-</p>
-
-<p>
-  <strong>Receiver:</strong>
-  <% @kudo.receiver_id %>
-  <%= @kudo.receiver_of_kudo.email %>
-</p>
+<div class="d-flex justify-content-end">
 <% if @kudo.giver_of_kudo == current_employee  %>
-  <%= link_to 'Edit', edit_kudo_path(@kudo) %> |
-  <%= link_to 'Destroy', @kudo, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to 'Edit', edit_kudo_path(@kudo), class: 'btn btn-primary' %>
+  <%= link_to 'Destroy', @kudo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <%= link_to 'Back', kudos_path, class: 'btn btn-secondary' %>
+<% else %>
+  <%= link_to 'Back', kudos_path, class: 'btn btn-secondary' %>
 <% end %>
-<%= link_to 'Back', kudos_path %>
+<br/>
+</div>
+    </div>
