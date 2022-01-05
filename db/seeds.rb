@@ -20,3 +20,5 @@ kudo4 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::G
 kudo5 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 5, :receiver_id => 5
 kudo6 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 6, :receiver_id => 2
 kudo7 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 1, :receiver_id => 4
+
+AdminUser.where(email: "admin@admin.com").first_or_create!(password: 'password')
