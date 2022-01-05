@@ -1,9 +1,7 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Kudos</h1>
 
-<table>
-  <thead>
+<table class="table table-striped table-hover">
+  <thead class="table-secondary">
     <tr>
       <th>Title</th>
       <th>Content</th>
@@ -20,16 +18,13 @@
         <td><%= kudo.content %></td>
         <td><%= kudo.giver_of_kudo.email %></td>
         <td><%= kudo.receiver_of_kudo.email %></td>
-        <td><%= link_to 'Show', kudo %></td>
         <% if kudo.giver_of_kudo == current_employee %>
-          <td><%= link_to 'Edit', edit_kudo_path(kudo) %></td>
-          <td><%= link_to 'Destroy', kudo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', kudo, class: 'btn btn-outline-primary btn-sm' %> <%= link_to 'Edit', edit_kudo_path(kudo), class: 'btn btn-outline-primary btn-sm' %> <%= link_to 'Destroy', kudo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+        <% else %>
+        <td><%= link_to 'Show', kudo, class: 'btn btn-outline-primary btn-sm' %></td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Kudo', new_kudo_path %>
+<%= link_to 'New Kudo', new_kudo_path, class: 'btn btn-success float-right' %>
