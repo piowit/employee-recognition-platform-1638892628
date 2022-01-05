@@ -5,7 +5,7 @@
             <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
                 <% if admin_user_signed_in? %>
                 <li class="nav-item">
-                    <%= link_to "Edit Profile", edit_admin_user_registration_path, class:"nav-link"%>
+                    <%= link_to "Dashboard", admin_path, class:"nav-link"%>
                 </li>
                 <li class="nav-item">
                    <%= link_to "Log Out", destroy_admin_user_session_path, method: :delete, class:"nav-link"%>
