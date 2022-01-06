@@ -2,10 +2,8 @@
 
 class KudosController < ApplicationController
   before_action :set_kudo, only: %i[show edit update destroy]
+  before_action :authenticate_employee!
   before_action :check_kudo_giver, only: %i[edit update destroy]
-  before_action do
-    !current_admin_user.nil? ? authenticate_admin_user! : authenticate_employee!
-  end
 
   # GET /kudos
   def index
