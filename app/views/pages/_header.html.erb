@@ -3,14 +3,7 @@
 
         <%= link_to 'Employee Recognition Platform', root_path, class:"navbar-brand d-flex w-50 me-auto" %>
             <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
-                <% if admin_user_signed_in? %>
-                <li class="nav-item">
-                    <%= link_to "Dashboard", admin_path, class:"nav-link"%>
-                </li>
-                <li class="nav-item">
-                   <%= link_to "Log Out", destroy_admin_user_session_path, method: :delete, class:"nav-link"%>
-                </li>
-                <% elsif employee_signed_in? %>
+                <% if employee_signed_in? %>
                 <li class="nav-item">
                     <%= link_to "Edit Profile", edit_employee_registration_path, class:"nav-link"%>
                 </li>
@@ -24,10 +17,10 @@
                 <li class="nav-item">
                     <%= link_to "Log In", new_employee_session_path, class:"nav-link"%>
                 </li>
-                <li class="nav-item">
-                    <%= link_to "Log In Admin", new_admin_user_session_path, class:"nav-link"%>
-                </li>
                 <% end %>   
+                <li class="nav-item">
+                    <%= link_to "Admin Dashboard", admin_root_path, class:"nav-link"%>
+                </li>
             </ul>
         </div>
     </div>
