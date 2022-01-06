@@ -2,16 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe 'AdminUser test', type: :system do
+RSpec.describe 'admin login test', type: :system do
   before do
     driven_by(:rack_test)
   end
 
   let!(:admin_user) { create(:admin_user) }
 
-  it 'admin log in' do
+  it 'has content Signed in successfully' do
     visit root_path
-    click_link 'Log In Admin'
+    click_link 'Admin Dashboard'
     fill_in 'Email', with: admin_user.email
     fill_in 'Password', with: admin_user.password
     click_button 'Log in'
