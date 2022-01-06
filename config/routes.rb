@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   devise_for :employees, path: 'employees'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'kudos#index'
-  get '/admin/', to: 'pages#dashboard'
+  get '/admin/', to: 'admin#dashboard'
 
-  namespace :admin_users, path: 'admin' do
-    root to: 'pages#dashboard'
+  namespace :admin do
+    root to: 'admin#dashboard'
   end
 end
