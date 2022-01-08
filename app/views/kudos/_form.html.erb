@@ -20,18 +20,12 @@
     <%= form.label :content, class: 'form-label' %>
     <%= form.text_area :content, class: 'form-control' %>
   </div>
-<br/>
-  <div class="field">
-    <% form.label 'Giver: ', class: 'form-label' %>
-    <%= form.text_field :employee_id, value:current_employee.id, type: :hidden %>
-    <% current_employee.email %>
-  </div>
 
     <div class="field">
     <%= form.label 'Receiver: ', class: 'form-label' %>
     <%= collection_select( :kudo, :receiver_id, Employee.all, :id, :email, {}, {:class => 'form-select'}) %>
   </div>
-<br/>
+  <br/>
   <div class="actions">
     <%= form.submit class: 'btn btn-success' %>
   </div>
