@@ -6,17 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-employee1 = Employee.create! :email => 'test1@test.com', :password => '111111', :password_confirmation => '111111'
-employee2 = Employee.create! :email => 'mscott@dm.com', :password => '111111', :password_confirmation => '111111'
-employee3 = Employee.create! :email => 'dschrute@dm.com', :password => '111111', :password_confirmation => '111111'
-employee4 = Employee.create! :email => 'jhalpert@dm.com', :password => '111111', :password_confirmation => '111111'
-employee5 = Employee.create! :email => 'pbeesly@dm.com', :password => '111111', :password_confirmation => '111111'
-employee6 = Employee.create! :email => 'cbratton@dm.com', :password => '111111', :password_confirmation => '111111'
+employee1 = Employee.where(email: 'test1@test.com').first_or_create!(password: 'password')
+employee2 = Employee.where(email: 'mscott@dm.com').first_or_create!(password: 'password')
+employee3 = Employee.where(email: 'dschrute@dm.com').first_or_create!(password: 'password')
+employee4 = Employee.where(email: 'jhalpert@dm.com').first_or_create!(password: 'password')
+employee5 = Employee.where(email: 'pbeesly@dm.com').first_or_create!(password: 'password')
+employee6 = Employee.where(email: 'cbratton@dm.com').first_or_create!(password: 'password')
 
-kudo1 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 2, :receiver_id => 3
-kudo2 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 3, :receiver_id => 2
-kudo3 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 2, :receiver_id => 4
-kudo4 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 4, :receiver_id => 6
-kudo5 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 5, :receiver_id => 5
-kudo6 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 6, :receiver_id => 2
-kudo7 = Kudo.create! :title => Faker::Superhero.descriptor, :content => Faker::GreekPhilosophers.quote, :employee_id => 1, :receiver_id => 4
+Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, employee_id: employee1.id, receiver_id: employee6.id)
+Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, employee_id: employee2.id, receiver_id: employee5.id)
+Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, employee_id: employee3.id, receiver_id: employee4.id)
+Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, employee_id: employee4.id, receiver_id: employee3.id)
+Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, employee_id: employee5.id, receiver_id: employee2.id)
+Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, employee_id: employee6.id, receiver_id: employee1.id)
+
+AdminUser.where(email: 'admin@admin.com').first_or_create!(password: 'password')
