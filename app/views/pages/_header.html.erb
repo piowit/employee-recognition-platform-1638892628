@@ -21,6 +21,11 @@
                 <li class="nav-item">
                     <%= link_to "Admin Dashboard", admin_root_path, class:"nav-link"%>
                 </li>
+                <% if admin_user_signed_in? %>
+                <li class="nav-item">
+                    <%= link_to "Admin Kudos", admin_kudos_path, class:"nav-link"%>
+                </li>
+                <% end %>
             </ul>
         </div>
     </div>
