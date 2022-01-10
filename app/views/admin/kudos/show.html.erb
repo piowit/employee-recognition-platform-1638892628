@@ -1,0 +1,8 @@
+<ul>
+  <li><%= @kudo.title %></li>
+  <li><%= @kudo.content %></li>
+  <li>From: <%= @kudo.giver_of_kudo.email %></li>
+  <li>To: <%= @kudo.receiver_of_kudo.email %></li>
+</ul>
+<%= link_to 'Edit', edit_admin_kudo_path(@kudo) %> |
+<%= link_to 'Back', admin_kudos_path %>
