@@ -1,0 +1,27 @@
+<h1>Admin Kudos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="7"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kudos.each do |kudo| %>
+      <tr>
+        <td><%= kudo.title %></td>
+        <td><%= kudo.content %></td>
+        <td><%= kudo.giver_of_kudo.email %></td>
+        <td><%= kudo.receiver_of_kudo.email %></td>
+        <td><%= link_to 'Show', admin_kudo_path(kudo) %></td>
+        <td><%= link_to 'Edit', edit_admin_kudo_path(kudo) %></td>
+        <td><%= link_to 'Destroy', admin_kudo_path(kudo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Kudo', new_admin_kudo_path %>
