@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class PagesController < ApplicationController
-    before_action :authenticate_admin_user!
-    layout 'admin'
+  class PagesController < AdminController
 
     def dashboard; end
   end

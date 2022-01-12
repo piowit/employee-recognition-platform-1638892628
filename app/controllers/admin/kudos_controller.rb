@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 module Admin
-  class KudosController < ApplicationController
+  class KudosController < AdminController
     before_action :set_kudo, only: %i[show edit update destroy]
-    before_action :authenticate_admin_user!
-    layout 'admin'
 
     # GET /admin/kudos
     def index
