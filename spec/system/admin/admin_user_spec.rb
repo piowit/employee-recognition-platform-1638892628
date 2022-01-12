@@ -18,16 +18,13 @@ RSpec.describe 'admin crud', type: :system do
     expect(page).to have_content 'Signed in successfully.'
     click_link 'Admin Kudos'
 
-    click_link 'New Admin Kudo'
+    click_link 'New Kudo'
     fill_in 'Title', with: 'test title1'
     fill_in 'Content', with: 'test content1'
     click_button 'Create Kudo'
     expect(page).to have_content 'Kudo was successfully created.'
     expect(page).to have_content 'test title1'
 
-    click_link 'Back'
-    expect(page).to have_content 'test title1'
-    click_link 'Show'
     click_link 'Edit'
     fill_in 'Title', with: 'test title2'
     click_button 'Update Kudo'
