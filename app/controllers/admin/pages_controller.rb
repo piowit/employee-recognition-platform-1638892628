@@ -6,6 +6,5 @@ module Admin
     layout 'admin'
 
     def dashboard; end
-
   end
 end
