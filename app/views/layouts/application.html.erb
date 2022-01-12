@@ -16,6 +16,9 @@
 
   <body>
   <%= render 'pages/header' %>
+  <% if admin_user_signed_in? %>
+    <%= render 'pages/headeradmin' %>
+  <% end %>
     <div class="container">
       <br/>
       <% if notice %>
