@@ -1,0 +1,37 @@
+<%= form_with(model: [:admin, @kudo ]) do |form| %>
+  <% if @kudo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kudo.errors.count, "error") %> prohibited this kudo from being saved:</h2>
+
+      <ul>
+        <% @kudo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<div class="mb-3">
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+</div>
+
+<div class="field">
+  <%= form.label :content %>
+  <%= form.text_area :content %>
+</div>
+
+<div class="field">
+  <%= form.label 'Giver: ' %>
+  <%= collection_select( :kudo, :employee_id, Employee.all, :id, :email, {}, {:class => 'form-select'}) %>
+</div>
+
+<div class="field">
+  <%= form.label 'Receiver: ' %>
+  <%= collection_select( :kudo, :receiver_id, Employee.all, :id, :email, {}, {:class => 'form-select'}) %>
+</div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
