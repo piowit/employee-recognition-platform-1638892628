@@ -1,0 +1,15 @@
+<nav class="navbar navbar-dark bg-secondary navbar-expand-md bg-faded justify-content-center">
+    <div class="container">
+
+        <%= link_to 'ERP Admin Panel', admin_root_path, class:"navbar-brand d-flex w-50 me-auto" %>
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+                <li class="nav-item">
+                    <%= link_to "Dashboard", admin_root_path, class:"nav-link"%>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Log Out", destroy_admin_user_session_path, method: :delete,  class:"nav-link"%>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

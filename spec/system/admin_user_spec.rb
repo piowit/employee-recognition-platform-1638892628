@@ -11,7 +11,7 @@ RSpec.describe 'admin login test', type: :system do
 
   it 'has content Signed in successfully' do
     visit root_path
-    click_link 'Admin Dashboard'
+    click_link 'Admin'
     fill_in 'Email', with: admin_user.email
     fill_in 'Password', with: admin_user.password
     click_button 'Log in'
