@@ -26,7 +26,7 @@ module Admin
     def update
       @company_value = CompanyValue.find(params[:id])
       if @company_value.update(company_value_params)
-        redirect_to admin_company_value_path(@company_value), notice: 'Company Value was successfully updated.'
+        redirect_to admin_company_values_path, notice: 'Company Value was successfully updated.'
       else
         render :edit
       end
