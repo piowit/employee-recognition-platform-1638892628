@@ -1,0 +1,11 @@
+<H1>Company Values:</h1><br />
+<ul>
+  <% @company_values.each do |company_value| %>
+    <li>
+      <%= company_value.title %> | 
+      <%= link_to 'Edit', edit_admin_company_value_path(company_value) %> | 
+      <%= link_to 'Delete', admin_company_value_path(company_value), method: :delete %> <br />
+    </li>
+  <% end %>
+</ul>
+<%= link_to 'Add Company Value', new_admin_company_value_path %>
