@@ -24,6 +24,7 @@ gem 'faker', '~> 1.6', '>= 1.6.3'
 group :test do
   gem 'capybara', '~> 3.36'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
 end
 group :development, :test do

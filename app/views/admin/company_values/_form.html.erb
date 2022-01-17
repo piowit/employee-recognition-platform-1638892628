@@ -1,0 +1,16 @@
+<%= form_with(model: [:admin, @company_value ]) do |form| %>
+  <% if @company_value.errors.any? %>
+    <div>
+      <%= pluralize(@company_value.errors.count, "error") %> prohibited this kudo from being saved:
+
+      <ul>
+        <% @company_value.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  Company Value: <br /> 
+  <%= form.text_field :title %>  <br />
+  <%= form.submit %>
+<% end %>
