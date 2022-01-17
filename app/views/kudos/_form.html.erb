@@ -21,9 +21,14 @@
     <%= form.text_area :content, class: 'form-control' %>
   </div>
 
-    <div class="field">
+  <div class="field">
     <%= form.label 'Receiver: ', class: 'form-label' %>
     <%= collection_select( :kudo, :receiver_id, Employee.all, :id, :email, {}, {:class => 'form-select'}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'Value: ', class: 'form-label' %>
+    <%= collection_select( :kudo, :company_value_id, CompanyValue.all, :id, :title, {}, {:class => 'form-select'}) %>
   </div>
   <br/>
   <div class="actions">
