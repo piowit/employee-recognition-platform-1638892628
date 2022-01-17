@@ -1,9 +1,13 @@
-<h1>Admin Kudos</h1>
+<h1>Manage Kudos</h1>
 
-<table>
-  <thead>
+<table class="table table-striped table-hover">
+  <thead class="table-secondary">
     <tr>
-      <th colspan="7"></th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Giver</th>
+      <th>Receiver</th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -14,9 +18,9 @@
         <td><%= kudo.content %></td>
         <td><%= kudo.giver_of_kudo.email %></td>
         <td><%= kudo.receiver_of_kudo.email %></td>
-        <td><%= link_to 'Show', admin_kudo_path(kudo) %></td>
-        <td><%= link_to 'Edit', edit_admin_kudo_path(kudo) %></td>
-        <td><%= link_to 'Destroy', admin_kudo_path(kudo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', admin_kudo_path(kudo), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_admin_kudo_path(kudo), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Destroy', admin_kudo_path(kudo), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Kudo', new_admin_kudo_path %>
+<%= link_to 'New Kudo', new_admin_kudo_path, class: 'btn btn-success' %>
