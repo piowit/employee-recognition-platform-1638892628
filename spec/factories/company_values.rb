@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :company_value do
-    title { 'Helpful' }
+    sequence(:title) { |i| "Helpful#{i}" }
   end
 end
