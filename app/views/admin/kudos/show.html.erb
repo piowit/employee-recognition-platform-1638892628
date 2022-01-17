@@ -3,6 +3,7 @@
   <li><%= @kudo.content %></li>
   <li>From: <%= @kudo.giver_of_kudo.email %></li>
   <li>To: <%= @kudo.receiver_of_kudo.email %></li>
+  <li>Value: <%= @kudo.company_value.title %></li>
 </ul>
 <%= link_to 'Edit', edit_admin_kudo_path(@kudo) %> |
 <%= link_to 'Back', admin_kudos_path %>
