@@ -17,7 +17,7 @@ RSpec.describe 'admin crud', type: :system do
     fill_in 'Password', with: admin_user.password
     click_button 'Log in'
     expect(page).to have_content 'Signed in successfully.'
-    click_link 'Admin Kudos'
+    click_link 'Kudos'
 
     click_link 'New Kudo'
     fill_in 'Title', with: 'test title1'
