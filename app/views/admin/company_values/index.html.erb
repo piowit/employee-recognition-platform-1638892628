@@ -3,18 +3,16 @@
 <table class="table table-striped table-hover">
   <thead class="table-secondary">
     <tr>
-      <th>Values:</th>
+      <th class="col-md-2">Values:</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @company_values.each do |company_value| %>
       <tr>
-        <td>
-          <%= link_to 'Edit', edit_admin_company_value_path(company_value), class: 'btn btn-outline-primary btn-sm' %>
-          <%= link_to 'Delete', admin_company_value_path(company_value), method: :delete, class: 'btn btn-outline-danger btn-sm' %>
-          <%= company_value.title %>
-        </td>
+        <td><%= company_value.title %></td>
+        <td><%= link_to 'Edit', edit_admin_company_value_path(company_value), class: 'btn btn-outline-primary btn-sm' %><%= link_to 'Delete', admin_company_value_path(company_value), method: :delete, class: 'btn btn-outline-danger btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
