@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_17_193411) do
+ActiveRecord::Schema.define(version: 2022_01_18_125433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,14 @@ ActiveRecord::Schema.define(version: 2022_01_17_193411) do
     t.index ["company_value_id"], name: "index_kudos_on_company_value_id"
     t.index ["employee_id"], name: "index_kudos_on_employee_id"
     t.index ["receiver_id"], name: "index_kudos_on_receiver_id"
+  end
+
+  create_table "rewards", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.decimal "price", precision: 8, scale: 2, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "kudos", "company_values"
