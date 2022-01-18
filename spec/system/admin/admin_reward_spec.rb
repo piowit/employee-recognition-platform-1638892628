@@ -22,7 +22,7 @@ RSpec.describe 'admin crud', type: :system do
     fill_in 'reward[description]', with: 'test reward description1'
     fill_in 'reward[price]', with: '0'
     click_button 'Create Reward'
-    expect(page).to have_content 'Price must be greater than 0'
+    expect(page).to have_content 'Price must be greater than or equal to 1'
     fill_in 'reward[price]', with: '1'
     click_button 'Create Reward'
     expect(page).to have_content 'Reward was successfully created.'
