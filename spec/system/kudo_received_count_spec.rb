@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Reward test', type: :system do
+RSpec.describe 'Received kudo count', type: :system do
   before do
     driven_by(:rack_test)
   end
@@ -20,9 +20,8 @@ RSpec.describe 'Reward test', type: :system do
     expect(page).to have_content 'Received Kudos: 0'
 
     create(:kudo, receiver_of_kudo: employee, giver_of_kudo: employee, company_value: company_value)
-    
+
     visit kudos_path
     expect(page).to have_content 'Received Kudos: 1'
-   
   end
 end
