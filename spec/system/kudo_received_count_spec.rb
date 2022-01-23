@@ -17,11 +17,11 @@ RSpec.describe 'Received kudo count', type: :system do
     fill_in 'Password', with: employee.password
     click_button 'Log in'
     expect(page).to have_content 'Signed in successfully.'
-    expect(page).to have_content 'Received Kudos: 0'
+    expect(page).to have_content 'Received Points: 0'
 
     create(:kudo, receiver_of_kudo: employee, giver_of_kudo: employee, company_value: company_value)
 
     visit kudos_path
-    expect(page).to have_content 'Received Kudos: 1'
+    expect(page).to have_content 'Received Points: 1'
   end
 end
