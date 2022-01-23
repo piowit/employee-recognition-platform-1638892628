@@ -4,10 +4,8 @@
         <%= link_to 'Employee Recognition Platform', root_path, class:"navbar-brand d-flex w-50 me-auto" %>
 
             <ul class="nav navbar-nav ms-auto w-100 justify-content-center">    
-            <% if employee_signed_in? %>       
-                <li class="nav-item">
-                    <a class="nav-link">Received Kudos: <%= current_employee.kudos_count %></a>
-                </li>   
+            <% if employee_signed_in? %>
+                    <span class="nav-link">Received Kudos: <%= current_employee.kudos_count %></span>
             <% end %>
             </ul>
             <ul class="nav navbar-nav ms-auto w-100 justify-content-end">            
