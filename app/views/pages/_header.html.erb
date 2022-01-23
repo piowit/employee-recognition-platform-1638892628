@@ -2,7 +2,15 @@
     <div class="container">
 
         <%= link_to 'Employee Recognition Platform', root_path, class:"navbar-brand d-flex w-50 me-auto" %>
-            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-center">    
+            <% if employee_signed_in? %>       
+                <li class="nav-item">
+                    <a class="nav-link">Received Kudos: <%= current_employee.kudos_count %></a>
+                </li>   
+            <% end %>
+            </ul>
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">            
                 <li class="nav-item">
                     <%= link_to "Rewards", rewards_path, class:"nav-link"%>
                 </li>
