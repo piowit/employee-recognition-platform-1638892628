@@ -9,7 +9,7 @@ class Employee < ApplicationRecord
   has_many :given_kudos, class_name: 'Kudo', foreign_key: 'giver_id', dependent: :destroy, inverse_of: :giver_of_kudo
   has_many :received_kudos, class_name: 'Kudo', foreign_key: 'receiver_id', dependent: :destroy, inverse_of: :receiver_of_kudo
 
-  def kudos_count
-    received_kudos.all.count
+  def points
+    received_kudos.count
   end
 end
