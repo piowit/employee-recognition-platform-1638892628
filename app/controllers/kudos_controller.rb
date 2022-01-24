@@ -7,7 +7,7 @@ class KudosController < ApplicationController
 
   # GET /kudos
   def index
-    @kudos = Kudo.all.includes(:company_value, :giver_of_kudo, :receiver_of_kudo)
+    @kudos = Kudo.all.includes(:company_value, :giver, :receiver)
   end
 
   # GET /kudos/1
@@ -24,7 +24,7 @@ class KudosController < ApplicationController
   # POST /kudos
   def create
     @kudo = Kudo.new(kudo_params)
-    @kudo.giver_of_kudo = current_employee
+    @kudo.giver = current_employee
 
     if @kudo.save
       redirect_to @kudo, notice: 'Kudo was successfully created.'
@@ -49,7 +49,7 @@ class KudosController < ApplicationController
   end
 
   def check_kudo_giver
-    redirect_to kudos_path, notice: 'You are not authorized to edit this kudo.' unless @kudo.giver_of_kudo == current_employee
+    redirect_to kudos_path, notice: 'You are not authorized to edit this kudo.' unless @kudo.giver == current_employee
   end
 
   private
