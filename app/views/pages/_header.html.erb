@@ -2,7 +2,13 @@
     <div class="container">
 
         <%= link_to 'Employee Recognition Platform', root_path, class:"navbar-brand d-flex w-50 me-auto" %>
-            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-center">    
+            <% if employee_signed_in? %>
+                    <span class="nav-link">Received Points: <%= current_employee.points %></span>
+            <% end %>
+            </ul>
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">            
                 <li class="nav-item">
                     <%= link_to "Rewards", rewards_path, class:"nav-link"%>
                 </li>

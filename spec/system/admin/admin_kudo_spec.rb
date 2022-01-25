@@ -24,7 +24,7 @@ RSpec.describe 'admin crud', type: :system do
     click_link 'New Kudo'
     fill_in 'Title', with: 'test title1'
     fill_in 'Content', with: 'test content1'
-    select employee1.email, from: 'kudo[employee_id]'
+    select employee1.email, from: 'kudo[giver_id]'
     select employee1.email, from: 'kudo[receiver_id]'
     select company_value1.title, from: 'kudo[company_value_id]'
     click_button 'Create Kudo'
@@ -35,7 +35,7 @@ RSpec.describe 'admin crud', type: :system do
 
     click_link 'Edit'
     fill_in 'Title', with: 'test title2'
-    select employee2.email, from: 'kudo[employee_id]'
+    select employee2.email, from: 'kudo[giver_id]'
     select employee2.email, from: 'kudo[receiver_id]'
     select company_value2.title, from: 'kudo[company_value_id]'
     click_button 'Update Kudo'

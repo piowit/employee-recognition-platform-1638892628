@@ -7,7 +7,7 @@ class KudosController < ApplicationController
 
   # GET /kudos
   def index
-    @kudos = Kudo.all
+    @kudos = Kudo.all.includes(:company_value, :giver, :receiver)
   end
 
   # GET /kudos/1
@@ -24,7 +24,7 @@ class KudosController < ApplicationController
   # POST /kudos
   def create
     @kudo = Kudo.new(kudo_params)
-    @kudo.giver_of_kudo = current_employee
+    @kudo.giver = current_employee
 
     if @kudo.save
       redirect_to @kudo, notice: 'Kudo was successfully created.'
@@ -49,7 +49,7 @@ class KudosController < ApplicationController
   end
 
   def check_kudo_giver
-    redirect_to kudos_path, notice: 'You are not authorized to edit this kudo.' unless @kudo.giver_of_kudo == current_employee
+    redirect_to kudos_path, notice: 'You are not authorized to edit this kudo.' unless @kudo.giver == current_employee
   end
 
   private
@@ -61,6 +61,6 @@ class KudosController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def kudo_params
-    params.require(:kudo).permit(:title, :content, :employee_id, :receiver_id, :company_value_id)
+    params.require(:kudo).permit(:title, :content, :giver_id, :receiver_id, :company_value_id)
   end
 end

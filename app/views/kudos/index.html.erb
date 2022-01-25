@@ -17,10 +17,10 @@
       <tr>
         <td><%= kudo.title %></td>
         <td><%= kudo.content %></td>
-        <td><%= kudo.giver_of_kudo.email %></td>
-        <td><%= kudo.receiver_of_kudo.email %></td>
+        <td><%= kudo.giver.email %></td>
+        <td><%= kudo.receiver.email %></td>
         <td><%= kudo.company_value.title %></td>
-        <% if kudo.giver_of_kudo == current_employee %>
+        <% if kudo.giver == current_employee %>
         <td><%= link_to 'Show', kudo, class: 'btn btn-outline-primary btn-sm' %> <%= link_to 'Edit', edit_kudo_path(kudo), class: 'btn btn-outline-primary btn-sm' %> <%= link_to 'Destroy', kudo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
         <% else %>
         <td><%= link_to 'Show', kudo, class: 'btn btn-outline-primary btn-sm' %></td>
