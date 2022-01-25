@@ -23,7 +23,7 @@
 
 <div class="field">
   <%= form.label 'Giver: ' %>
-  <%= collection_select( :kudo, :employee_id, Employee.all, :id, :email, {}, {:class => 'form-select'}) %>
+  <%= collection_select( :kudo, :giver_id, Employee.all, :id, :email, {}, {:class => 'form-select'}) %>
 </div>
 
 <div class="field">

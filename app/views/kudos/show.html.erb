@@ -9,8 +9,8 @@
             <ul class="list-unstyled mt-3 mb-4">
               <li><h2><%= @kudo.title %></h2></li>
               <li><h4><%= @kudo.content %></h4></li>
-              <li>To: <%= @kudo.receiver_of_kudo.email %></li>
-              <li>From: <%= @kudo.giver_of_kudo.email %></li>
+              <li>To: <%= @kudo.receiver.email %></li>
+              <li>From: <%= @kudo.giver.email %></li>
               <li>Value: <%= @kudo.company_value.title %></li>
             </ul>
             
@@ -19,7 +19,7 @@
       </div>
 
 <div class="d-flex justify-content-end">
-<% if @kudo.giver_of_kudo == current_employee  %>
+<% if @kudo.giver == current_employee  %>
   <%= link_to 'Edit', edit_kudo_path(@kudo), class: 'btn btn-primary' %>
   <%= link_to 'Destroy', @kudo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   <%= link_to 'Back', kudos_path, class: 'btn btn-secondary' %>

@@ -17,8 +17,8 @@
       <tr>
         <td><%= kudo.title %></td>
         <td><%= kudo.content %></td>
-        <td><%= kudo.giver_of_kudo.email %></td>
-        <td><%= kudo.receiver_of_kudo.email %></td>
+        <td><%= kudo.giver.email %></td>
+        <td><%= kudo.receiver.email %></td>
         <td><%= kudo.company_value.title %></td>
         <td><%= link_to 'Show', admin_kudo_path(kudo), class: 'btn btn-outline-primary btn-sm' %></td>
         <td><%= link_to 'Edit', edit_admin_kudo_path(kudo), class: 'btn btn-outline-primary btn-sm' %></td>
