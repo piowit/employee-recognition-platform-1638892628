@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     else
       @order = Order.new(employee: current_employee, reward: @reward)
       if @order.save
-        redirect_to rewards_path, notice: 'Reward was bought'
+        redirect_to rewards_path, notice: 'Reward bought'
       else
         redirect_to rewards_path, notice: 'Error'
       end
