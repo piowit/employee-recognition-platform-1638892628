@@ -5,8 +5,4 @@ class Reward < ApplicationRecord
   validates :title, :description, :price, presence: true
 
   has_many :orders, dependent: :nullify
-
-  # def price_sum
-  #   price.sum
-  # end
 end

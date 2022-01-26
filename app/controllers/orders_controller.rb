@@ -4,10 +4,6 @@ class OrdersController < ApplicationController
   before_action :authenticate_employee!
   before_action :reward_find, only: [:create]
 
-  def index
-    @orders = Order.all
-  end
-
   def create
     if current_employee.points < @reward.price
       redirect_to rewards_path, notice: 'You have insufficient funds'
