@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
+  before_action :authenticate_employee!
   before_action :reward_find, only: [:create]
 
   def index
