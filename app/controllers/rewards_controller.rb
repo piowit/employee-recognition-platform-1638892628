@@ -2,7 +2,7 @@
 
 class RewardsController < ApplicationController
   before_action :authenticate_employee!
-  
+
   def index
     @rewards = Reward.all
   end

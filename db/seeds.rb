@@ -27,5 +27,3 @@ Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, give
 
 r1 = Reward.create!(title: Faker::Hipster.word, description: Faker::Restaurant.review, price: 1)
 r2 = Reward.create!(title: Faker::Hipster.word, description: Faker::Restaurant.review, price: 2)
-
-Order.create!(employee: employee1, reward: r1)
