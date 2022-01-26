@@ -40,7 +40,3 @@ RSpec/MultipleExpectations:
 RSpec/LetSetup:
   Exclude:
     - spec/system/admin/* 
-
-Metrics/MethodLength:
-  Exclude:
-    - app/controllers/*

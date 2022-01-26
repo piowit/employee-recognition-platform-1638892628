@@ -36,7 +36,9 @@ RSpec.describe 'Reward test', type: :system do
     create(:kudo, giver: employee, receiver: employee, company_value: cv)
 
     visit rewards_path
+    expect(page).to have_content 'Received Points: 1'
     click_link 'Buy'
     expect(page).to have_content 'Reward bought'
+    expect(page).to have_content 'Received Points: 0'
   end
 end
