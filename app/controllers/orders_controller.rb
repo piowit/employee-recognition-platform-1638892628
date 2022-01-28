@@ -2,13 +2,12 @@
 
 class OrdersController < ApplicationController
   before_action :authenticate_employee!
-  before_action :reward_find, only: [:create]
 
   def create
-    if current_employee.points < @reward.price
+    if current_employee.points < reward.price
       redirect_to rewards_path, notice: 'You have insufficient funds'
     else
-      @order = Order.new(employee: current_employee, reward: @reward)
+      @order = Order.new(employee: current_employee, reward: reward)
       if @order.save
         redirect_to rewards_path, notice: 'Reward bought'
       else
@@ -19,7 +18,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def reward_find
-    @reward = Reward.find(params[:reward])
+  def reward
+    Reward.find(params[:reward])
   end
 end
