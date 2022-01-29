@@ -6,11 +6,8 @@ class OrderCreator
   include Dry::Monads[:result, :do]
 
   def call(employee:, reward:)
-    Order.transaction do
-      yield check_funds(employee, reward)
-
-      Success('Reward bought')
-    end
+    yield check_funds(employee, reward)
+    Success('Reward bought')
   end
 
   private
