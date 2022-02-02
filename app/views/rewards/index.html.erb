@@ -14,7 +14,7 @@
       <tr>
         <td><%= reward.title %></td>
         <td><%= reward.price %></td>
-        <td><%= link_to 'Show', reward_path(reward), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to "Buy", orders_path(reward: reward,), method: :post, class: "btn btn-success btn-sm" %><%= link_to 'Show', reward_path(reward), class: 'btn btn-outline-primary btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
