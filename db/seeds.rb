@@ -25,5 +25,5 @@ Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, give
 Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, giver_id: employee5.id, receiver_id: employee2.id, company_value: cv1)
 Kudo.create!(title: Faker::Hipster.word, content: Faker::Restaurant.review, giver_id: employee6.id, receiver_id: employee1.id, company_value: cv2)
 
-Reward.create!(title: Faker::Hipster.word, description: Faker::Restaurant.review, price: 125)
-Reward.create!(title: Faker::Hipster.word, description: Faker::Restaurant.review, price: 125)
+Reward.create!(title: Faker::Hipster.word, description: Faker::Restaurant.review, price: 1)
+Reward.create!(title: Faker::Hipster.word, description: Faker::Restaurant.review, price: 2)
