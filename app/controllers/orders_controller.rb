@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_employee!
 
   def index
-    @orders = Order.where(employee: current_employee)
+    @orders = Order.where(employee: current_employee).includes(:employee)
   end
 
   def create
