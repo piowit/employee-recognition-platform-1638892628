@@ -13,7 +13,7 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.employee.created_at.strftime("%d-%m-%y %H:%M") %></td>
+        <td><%= order.created_at.strftime("%d-%m-%y %H:%M") %></td>
         <td><%= order.snapshot.title %></td>
         <td><%= order.snapshot.description %></td>
         <td><%= order.snapshot.price %></td>
