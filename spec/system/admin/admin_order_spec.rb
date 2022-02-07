@@ -14,7 +14,6 @@ RSpec.describe 'Order spec', type: :system do
   let(:reward2) { create(:reward, price: 2) }
 
   it 'tests order' do
-    # visit root_path
     create(:kudo, giver: employee, receiver: employee, company_value: company_value)
     login_as employee, scope: :employee
     login_as admin, scope: :admin_user
@@ -23,6 +22,9 @@ RSpec.describe 'Order spec', type: :system do
     expect(page).not_to have_content reward.title
     expect(page).not_to have_content reward.description
     expect(page).not_to have_content reward.price
+    visit admin_orders_path
+    expect(page).not_to have_content reward.title
+    expect(page).not_to have_content employee.email
 
     visit rewards_path
     expect(page).to have_content reward.title
@@ -33,6 +35,9 @@ RSpec.describe 'Order spec', type: :system do
     expect(page).to have_content reward.title
     expect(page).to have_content reward.description
     expect(page).to have_content reward.price
+    visit admin_orders_path
+    expect(page).to have_content reward.title
+    expect(page).to have_content employee.email
 
     visit admin_rewards_path
     expect(page).to have_content reward.title
@@ -49,6 +54,14 @@ RSpec.describe 'Order spec', type: :system do
     expect(page).to have_content reward.title
     expect(page).to have_content reward.description
     expect(page).to have_content reward.price
+    expect(page).not_to have_content reward2.title
+    expect(page).not_to have_content reward2.description
+    expect(page).not_to have_content reward2.price
+    visit admin_orders_path
+    expect(page).to have_content reward.title
+    expect(page).to have_content reward.description
+    expect(page).to have_content reward.price
+    expect(page).to have_content employee.email
     expect(page).not_to have_content reward2.title
     expect(page).not_to have_content reward2.description
     expect(page).not_to have_content reward2.price
