@@ -7,7 +7,7 @@ class KudosController < ApplicationController
 
   # GET /kudos
   def index
-    @kudos = Kudo.all.includes(:company_value, :giver, :receiver)
+    @kudos = Kudo.includes(:company_value, :giver, :receiver)
   end
 
   # GET /kudos/1
