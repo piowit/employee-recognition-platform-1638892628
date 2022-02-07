@@ -1,9 +1,25 @@
-<ul>
-  <li><%= @kudo.title %></li>
-  <li><%= @kudo.content %></li>
-  <li>From: <%= @kudo.giver.email %></li>
-  <li>To: <%= @kudo.receiver.email %></li>
-  <li>Value: <%= @kudo.company_value.title %></li>
-</ul>
-<%= link_to 'Edit', edit_admin_kudo_path(@kudo) %> |
-<%= link_to 'Back', admin_kudos_path %>
+<div class="d-flex w-50 ">
+  <div class="container p-2">
+    <div class="card-deck mb-3 text-center">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Kudo details</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li><h2><%= @kudo.title %></h2></li>
+            <li><h4><%= @kudo.content %></h4></li>
+            <li>To: <%= @kudo.receiver.email %></li>
+            <li>From: <%= @kudo.giver.email %></li>
+            <li>Value: <%= @kudo.company_value.title %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <%= link_to 'Edit', edit_admin_kudo_path(@kudo), class: 'btn btn-primary' %>
+      <%= link_to 'Destroy', admin_kudo_path(@kudo), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <%= link_to 'Back', admin_kudos_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>
