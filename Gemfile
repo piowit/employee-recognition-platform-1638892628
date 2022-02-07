@@ -22,6 +22,7 @@ gem 'devise', '~> 4.8'
 gem 'faker', '~> 1.6', '>= 1.6.3'
 
 group :test do
+  gem 'bullet', group: 'development'
   gem 'capybara', '~> 3.36'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
