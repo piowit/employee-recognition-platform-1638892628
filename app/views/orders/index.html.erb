@@ -14,9 +14,9 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.created_at.strftime("%d-%m-%y %H:%M") %></td>
-        <td><%= order.snapshot.title %></td>
-        <td><%= order.snapshot.description %></td>
-        <td><%= order.snapshot.price %></td>
+        <td><%= order.reward_snapshot.title %></td>
+        <td><%= order.reward_snapshot.description %></td>
+        <td><%= order.reward_snapshot.price %></td>
       </tr>
     <% end %>
   </tbody>

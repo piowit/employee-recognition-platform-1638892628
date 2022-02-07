@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     if current_employee.points < reward.price
       redirect_to rewards_path, notice: 'You have insufficient funds'
     else
-      @order = Order.new(employee: current_employee, reward: reward, snapshot: reward)
+      @order = Order.new(employee: current_employee, reward: reward, reward_snapshot: reward)
       if @order.save
         redirect_to rewards_path, notice: 'Reward bought'
       else
