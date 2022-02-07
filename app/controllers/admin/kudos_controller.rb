@@ -6,7 +6,7 @@ module Admin
 
     # GET /admin/kudos
     def index
-      @kudos = Kudo.all.includes(:company_value, :giver, :receiver)
+      @kudos = Kudo.all.includes(:company_value)
     end
 
     # GET /admin/kudos/1
