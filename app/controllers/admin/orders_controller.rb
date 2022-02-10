@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class OrdersController < ApplicationController
+  class OrdersController < AdminController
     before_action :authenticate_employee!
 
     def index
