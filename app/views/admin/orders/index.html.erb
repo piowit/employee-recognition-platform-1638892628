@@ -9,6 +9,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Delivered</th>
       </tr>
     </thead>
 
@@ -20,6 +21,11 @@
           <td><%= order.reward_snapshot.title %></td>
           <td><%= order.reward_snapshot.description %></td>
           <td><%= order.reward_snapshot.price %></td>
+          <% if order.delivered %>
+            <td><%= order.delivered %></td>
+          <% else %>
+            <td><%= order.delivered %><%= link_to 'Deliver', deliver_admin_order_path(order), data: { confirm: 'Are you sure? It cannot be undone.' }, class: 'btn btn-outline-danger btn-sm' %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
