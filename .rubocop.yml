@@ -40,3 +40,8 @@ RSpec/MultipleExpectations:
 RSpec/LetSetup:
   Exclude:
     - spec/system/admin/* 
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - spec/system/* 
+    - spec/system/admin/* 

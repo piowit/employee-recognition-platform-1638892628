@@ -7,11 +7,5 @@ module Admin
     def index
       @orders = Order.includes(:employee)
     end
-
-    private
-
-    def reward
-      Reward.find(params[:reward])
-    end
   end
 end
