@@ -1,0 +1,27 @@
+<h1>All Orders:</h1>
+
+<div data-controller="employeeOrders">
+  <table class="table table-striped table-hover">
+    <thead class="table-secondary">
+      <tr>
+        <th>Purchuase time</th>
+        <th>Placed by</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.created_at.strftime("%d-%m-%y %H:%M") %></td>
+          <td><%= order.employee.email %></td>
+          <td><%= order.reward_snapshot.title %></td>
+          <td><%= order.reward_snapshot.description %></td>
+          <td><%= order.reward_snapshot.price %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
