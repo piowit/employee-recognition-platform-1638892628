@@ -12,7 +12,6 @@ RSpec.describe 'Order spec', type: :system do
   let!(:admin) { create(:admin_user) }
   let(:company_value) { create(:company_value) }
   let!(:reward1) { create(:reward, price: 1) }
-  let(:reward2) { create(:reward, price: 2) }
   let!(:kudo) { create(:kudo, giver: employee, receiver: employee, company_value: company_value) }
   let!(:order) { create(:order, employee_id: employee.id, reward: reward1, reward_snapshot: reward1) }
 
