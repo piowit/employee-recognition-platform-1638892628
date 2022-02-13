@@ -11,8 +11,8 @@ RSpec.describe 'Order spec', type: :system do
   let!(:employee) { create(:employee) }
   let!(:admin) { create(:admin_user) }
   let(:company_value) { create(:company_value) }
-  let!(:reward1) { FactoryBot.create(:reward, price: 1) }
-  let(:reward2) { FactoryBot.create(:reward, price: 2) }
+  let!(:reward1) { create(:reward, price: 1) }
+  let(:reward2) { create(:reward, price: 2) }
   let!(:kudo) { create(:kudo, giver: employee, receiver: employee, company_value: company_value) }
 
   it 'tests placing order and snapshot' do

@@ -28,9 +28,7 @@ Style/Documentation:
   Enabled: false
   
 RSpec/ExampleLength:
-  Exclude: 
-    - spec/system/*
-    - spec/system/admin/*
+  Enabled: false
 
 RSpec/MultipleExpectations:
   Exclude: 
@@ -42,6 +40,7 @@ RSpec/LetSetup:
     - spec/system/admin/* 
 
 RSpec/MultipleMemoizedHelpers:
-  Exclude:
-    - spec/system/* 
-    - spec/system/admin/* 
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
