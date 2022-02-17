@@ -2,7 +2,6 @@
 
 module Admin
   class OrdersController < AdminController
-
     def index
       @orders = Order.includes(:employee).order(:delivered)
     end
