@@ -16,7 +16,7 @@ RSpec.describe 'Order spec', type: :system do
   let!(:order) { create(:order, employee_id: employee.id, reward: reward1, reward_snapshot: reward1) }
 
   it 'tests delivering order' do
-    login_as employee, scope: :employee
+    # login_as employee, scope: :employee
     login_as admin, scope: :admin_user
 
     # check if order is not delivered

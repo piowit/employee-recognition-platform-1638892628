@@ -2,7 +2,6 @@
 
 module Admin
   class OrdersController < AdminController
-    before_action :authenticate_employee!
 
     def index
       @orders = Order.includes(:employee).order(:delivered)
