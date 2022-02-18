@@ -24,7 +24,7 @@
           <% if order.delivered %>
             <td>Delivered</td>
           <% else %>
-            <td>Not yet <%= link_to 'Deliver', admin_delivery_path(order), method: :put, data: { confirm: 'Are you sure? It cannot be undone.' }, class: 'btn btn-outline-danger btn-sm' %></td>
+            <td>Not yet <%= link_to 'Deliver', admin_delivery_path(order), method: :patch, data: { confirm: 'Are you sure? It cannot be undone.' }, class: 'btn btn-outline-danger btn-sm' %></td>
           <% end %>
         </tr>
       <% end %>
