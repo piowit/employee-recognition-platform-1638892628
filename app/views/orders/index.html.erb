@@ -1,4 +1,10 @@
 <h1>Your Orders:</h1>
+<div class="nav ms-auto w-100 justify-content-end">
+<%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-success btn' %>
+<%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-primary btn' %>
+<%= link_to 'All', orders_path, class: 'btn btn-secondary btn' %>
+</div>
+
 
 <table class="table table-striped table-hover">
   <thead class="table-secondary">
@@ -7,6 +13,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Price</th>
+      <th>Delivered</th>
     </tr>
   </thead>
 
@@ -17,6 +24,13 @@
         <td><%= order.reward_snapshot.title %></td>
         <td><%= order.reward_snapshot.description %></td>
         <td><%= order.reward_snapshot.price %></td>
+        <td>
+          <% if order.delivered %>
+            Delivered
+          <% else %>
+            Not yet 
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
