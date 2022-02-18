@@ -20,7 +20,7 @@ RSpec.describe 'Order spec', type: :system do
     visit root_path
     click_link 'Admin'
     click_link 'Orders'
-    expect(page).not_to have_content "Edit"
+    expect(page).not_to have_content 'Edit'
 
     # buy reward
     order = create(:order, employee: employee)
