@@ -21,11 +21,13 @@
           <td><%= order.reward_snapshot.title %></td>
           <td><%= order.reward_snapshot.description %></td>
           <td><%= order.reward_snapshot.price %></td>
-          <% if order.delivered %>
-            <td>Delivered</td>
-          <% else %>
-            <td>Not yet <%= link_to 'Deliver', admin_delivery_path(order), method: :patch, data: { confirm: 'Are you sure? It cannot be undone.' }, class: 'btn btn-outline-danger btn-sm' %></td>
-          <% end %>
+          <td>
+            <% if order.delivered %>
+              Delivered
+            <% else %>
+              Not yet <%= link_to 'Deliver', admin_delivery_path(order), method: :patch, data: { confirm: 'Are you sure? It cannot be undone.' }, class: 'btn btn-outline-danger btn-sm' %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
