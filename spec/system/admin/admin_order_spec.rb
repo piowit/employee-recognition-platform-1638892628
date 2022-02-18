@@ -10,10 +10,7 @@ RSpec.describe 'Order spec', type: :system do
 
   let!(:employee) { create(:employee) }
   let!(:admin) { create(:admin_user) }
-  let(:company_value) { create(:company_value) }
-  let!(:reward1) { create(:reward, price: 1) }
-  let(:reward2) { create(:reward, price: 2) }
-  let!(:kudo) { create(:kudo, giver: employee, receiver: employee, company_value: company_value) }
+  let!(:kudo) { create(:kudo, giver: employee, receiver: employee) }
 
   it 'tests placing order and snapshot' do
     login_as employee, scope: :employee
@@ -23,34 +20,34 @@ RSpec.describe 'Order spec', type: :system do
     visit root_path
     click_link 'Admin'
     click_link 'Orders'
-    expect(page).not_to have_content reward1.title
+    expect(page).not_to have_content "Edit"
 
     # buy reward
-    create(:order, employee_id: employee.id, reward: reward1, reward_snapshot: reward1)
+    order = create(:order, employee: employee)
 
     # check if reward was bought
     visit root_path
     click_link 'Admin'
     click_link 'Orders'
-    expect(page).to have_content reward1.title
-    expect(page).to have_content employee.email
+    expect(page).to have_content order.reward.title
+    expect(page).to have_content order.employee.email
 
-    # edit reward title with 'reward2'
+    # edit reward title with 'reward2reward2'
     visit root_path
     click_link 'Admin'
     click_link 'Rewards'
-    expect(page).to have_content reward1.title
+    expect(page).to have_content order.reward.title
     click_link 'Edit'
-    fill_in 'reward[title]', with: reward2.title
+    fill_in 'reward[title]', with: 'reward2reward2'
     click_button 'Update Reward'
     expect(page).to have_content 'Reward was successfully updated.'
-    expect(page).to have_content reward2.title
+    expect(page).to have_content 'reward2reward2'
 
     # check if reward snapshot has not change (reward =! reward snapshot)
     visit root_path
     click_link 'Admin'
     click_link 'Orders'
-    expect(page).to have_content reward1.title
-    expect(page).not_to have_content reward2.title
+    expect(page).to have_content order.reward.title
+    expect(page).not_to have_content 'reward2reward2'
   end
 end
