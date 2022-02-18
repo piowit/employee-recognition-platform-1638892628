@@ -1,8 +1,19 @@
 <h1>Your Orders:</h1>
-<div class="nav ms-auto w-100 justify-content-end">
-<%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-success btn' %>
-<%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-primary btn' %>
-<%= link_to 'All', orders_path, class: 'btn btn-secondary btn' %>
+<div class="nav ms-auto w-100">
+
+<% if params.has_value?('delivered') %>
+  <%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-primary btn' %>
+  <%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-outline-secondary btn' %>
+  <%= link_to 'All', orders_path, class: 'btn btn-outline-secondary btn' %>
+<% elsif params.has_value?('notDelivered') %>
+  <%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-outline-secondary btn' %>
+  <%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-primary btn' %>
+  <%= link_to 'All', orders_path, class: 'btn btn-outline-secondary btn' %>
+<% else %>
+  <%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-outline-secondary btn' %>
+  <%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-outline-secondary btn' %>
+  <%= link_to 'All', orders_path, class: 'btn btn-primary btn' %>
+<% end %>
 </div>
 
 
