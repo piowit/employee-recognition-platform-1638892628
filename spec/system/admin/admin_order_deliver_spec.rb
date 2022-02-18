@@ -8,12 +8,8 @@ RSpec.describe 'Order spec', type: :system do
     Bullet.raise = false
   end
 
-  let!(:employee) { create(:employee) }
   let!(:admin) { create(:admin_user) }
-  let(:company_value) { create(:company_value) }
-  let!(:reward1) { create(:reward, price: 1) }
-  let!(:kudo) { create(:kudo, giver: employee, receiver: employee, company_value: company_value) }
-  let!(:order) { create(:order, employee_id: employee.id, reward: reward1, reward_snapshot: reward1) }
+  let!(:order) { create(:order) }
 
   it 'tests delivering order' do
     # login_as employee, scope: :employee
