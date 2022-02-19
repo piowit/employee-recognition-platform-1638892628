@@ -3,10 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'admin crud', type: :system do
-  before do
-    driven_by(:rack_test)
-  end
-
   let!(:admin_user) { create(:admin_user) }
 
   it 'test admin rewards crud actions' do

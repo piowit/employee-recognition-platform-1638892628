@@ -3,10 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Order spec', type: :system do
-  before do
-    driven_by(:rack_test)
-  end
-
   let!(:employee) { create(:employee) }
   let!(:reward) { create(:reward, price: 1) }
   let!(:company_value) { create(:company_value) }
