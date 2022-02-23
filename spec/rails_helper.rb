@@ -72,4 +72,7 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
 end

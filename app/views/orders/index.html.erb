@@ -1,19 +1,9 @@
 <h1>Your Orders:</h1>
 
 <div class="nav ms-auto w-100">
-  <% if params.has_value?('delivered') %>
-    <%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-primary btn' %>
-    <%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-outline-secondary btn' %>
-    <%= link_to 'All', orders_path, class: 'btn btn-outline-secondary btn' %>
-  <% elsif params.has_value?('notDelivered') %>
-    <%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-outline-secondary btn' %>
-    <%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-primary btn' %>
-    <%= link_to 'All', orders_path, class: 'btn btn-outline-secondary btn' %>
-  <% else %>
-    <%= link_to 'Delivered', orders_path(filter: "delivered"), class: 'btn btn-outline-secondary btn' %>
-    <%= link_to 'Not Delivered', orders_path(filter: "notDelivered"), class: 'btn btn-outline-secondary btn' %>
-    <%= link_to 'All', orders_path, class: 'btn btn-primary btn' %>
-  <% end %>
+  <%= link_to 'Delivered', orders_path(delivered: "true"), class: 'btn btn-outline-secondary' %>
+  <%= link_to 'Not Delivered', orders_path(delivered: "false"), class: 'btn btn-outline-secondary'  %>
+  <%= link_to 'All', orders_path, class: 'btn btn-outline-secondary' %>
 </div>
 
 <table class="table table-striped table-hover">
@@ -34,13 +24,7 @@
         <td><%= order.reward_snapshot.title %></td>
         <td><%= order.reward_snapshot.description %></td>
         <td><%= order.reward_snapshot.price %></td>
-        <td>
-          <% if order.delivered %>
-            Delivered
-          <% else %>
-            Not yet 
-          <% end %>
-        </td>
+        <td><%= t order.delivered.to_s %></td>        
       </tr>
     <% end %>
   </tbody>
