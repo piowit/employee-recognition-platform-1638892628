@@ -4,14 +4,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_employee!
 
   def index
-    @orders = case params[:filter]
-              when 'delivered'
-                Order.where(employee: current_employee, delivered: true)
-              when 'notDelivered'
-                Order.where(employee: current_employee, delivered: false)
-              else
-                Order.where(employee: current_employee)
-              end
+    @orders = OrderSearch.new(params).results.where(employee: current_employee)
   end
 
   def create
