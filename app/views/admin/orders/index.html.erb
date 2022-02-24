@@ -21,11 +21,9 @@
           <td><%= order.reward_snapshot.title %></td>
           <td><%= order.reward_snapshot.description %></td>
           <td><%= order.reward_snapshot.price %></td>
-          <td>
-            <% if order.delivered %>
-              Delivered
-            <% else %>
-              Not yet <%= link_to 'Deliver', admin_delivery_path(order), method: :patch, data: { confirm: 'Are you sure? It cannot be undone.' }, class: 'btn btn-outline-danger btn-sm' %>
+          <td><%= t order.delivered.to_s %>
+            <% if order.delivered == false %>
+              <%= link_to 'Deliver', admin_delivery_path(order), method: :patch, data: { confirm: 'Are you sure? It cannot be undone.' }, class: 'btn btn-outline-danger btn-sm' %>
             <% end %>
           </td>
         </tr>

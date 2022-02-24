@@ -19,12 +19,12 @@ RSpec.describe 'Order spec', type: :system do
     visit root_path
     click_link 'Admin'
     click_link 'Orders'
-    expect(page).to have_content 'Not yet'
+    expect(page).to have_content 'No'
 
     # deliver order
     click_link 'Deliver'
     expect(page).to have_content 'Order delivered'
-    expect(page).to have_content 'Delivered'
+    expect(page).to have_content 'Yes'
 
     # check if you can deliver again
     visit deliver_admin_order_path(order)
