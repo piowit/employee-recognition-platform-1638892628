@@ -25,9 +25,5 @@ RSpec.describe 'Order spec', type: :system do
     click_link 'Deliver'
     expect(page).to have_content 'Order delivered'
     expect(page).to have_content 'Yes'
-
-    # check if you can deliver again
-    visit deliver_admin_order_path(order)
-    expect(page).to have_content 'Order already delivered'
   end
 end
