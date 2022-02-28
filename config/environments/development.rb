@@ -13,9 +13,6 @@ Rails.application.configure do
     Bullet.add_footer    = true
   end
 
-  config.action_mailer.delivery_method = :letter_opener
-  # config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -49,6 +46,8 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
