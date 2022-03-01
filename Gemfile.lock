@@ -219,7 +219,6 @@ GEM
     rubocop-rspec (2.5.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
-    ruby_http_client (3.5.4)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -237,8 +236,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
-    sendgrid-ruby (6.6.1)
-      ruby_http_client (~> 3.4)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     spring (3.0.0)
@@ -305,7 +302,6 @@ DEPENDENCIES
   sass-rails (>= 6)
   searchlight (~> 4.1)
   selenium-webdriver
-  sendgrid-ruby
   shoulda-matchers (~> 5.0)
   spring
   tzinfo-data

@@ -13,7 +13,6 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'sass-rails', '>= 6'
 gem 'searchlight', '~> 4.1'
-gem 'sendgrid-ruby'
 gem 'webpacker', '~> 5.0'
 
 group :test do
