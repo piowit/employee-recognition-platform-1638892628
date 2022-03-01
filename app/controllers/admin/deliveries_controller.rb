@@ -5,7 +5,6 @@ module Admin
     def update
       @order = Order.find(params[:id])
       if @order.delivered
-        DeliveryOrderMailer.send_delivery_confirmation_email(@order).deliver_now
         redirect_to admin_orders_path, notice: 'Order already delivered'
       else
         @order.delivered = true
