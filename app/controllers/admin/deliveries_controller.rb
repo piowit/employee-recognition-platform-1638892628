@@ -9,6 +9,7 @@ module Admin
       else
         @order.delivered = true
         if @order.save
+          DeliveryOrderMailer.with(order: @order).send_delivery_confirmation_email.deliver_now
           redirect_to admin_orders_path, notice: 'Order delivered'
         else
           redirect_to admin_orders_path, notice: 'Error'
