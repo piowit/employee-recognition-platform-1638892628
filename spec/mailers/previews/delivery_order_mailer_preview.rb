@@ -2,6 +2,6 @@
 
 class DeliveryOrderMailerPreview < ActionMailer::Preview
   def send_delivery_confirmation_email
-    DeliveryOrderMailer.send_delivery_confirmation_email(FactoryBot.build(:order))
+    DeliveryOrderMailer.with(order: FactoryBot.build(:order)).send_delivery_confirmation_email
   end
 end

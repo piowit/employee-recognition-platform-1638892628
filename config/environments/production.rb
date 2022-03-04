@@ -56,8 +56,8 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   ActionMailer::Base.smtp_settings = {
-    user_name: 'apikey', # This is the string literal 'apikey', NOT the ID of your API key
-    password: Rails.application.credentials.sendgrid[:secret_access_key], # This is the secret sendgrid API key which was issued during API key creation
+    user_name: Rails.application.credentials.sendgrid[:access_key_id],
+    password: Rails.application.credentials.sendgrid[:secret_access_key],
     domain: 'employeerecognitionplatfrom.heroku.com',
     address: 'smtp.sendgrid.net',
     port: 587,
