@@ -1,0 +1,26 @@
+<h2> Add Kudos Points to all employees</h2>
+<br/>
+
+<%= form_for :employee, url: admin_add_kudo_path(@employees), method: :put do |f| %>
+  <%= f.number_field :amount, in: 1..20, value: 1 %>
+  <%= f.submit "Add points" %>
+<% end %>
+<br/>
+
+<table class="table table-striped table-hover">
+  <thead class="table-secondary">
+    <tr>
+      <th>Employees</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr data-user-email="<%= employee.email %>">
+        <td><%= employee.email %></td>
+        <td><%= employee.points %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

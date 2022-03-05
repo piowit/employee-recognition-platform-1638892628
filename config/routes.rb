@@ -17,5 +17,6 @@ Rails.application.routes.draw do
     resources :rewards
     resources :deliveries, only: %i[update]
     resources :orders, only: %i[index]
+    resources :add_kudos, only: %i[index update]
   end
 end
