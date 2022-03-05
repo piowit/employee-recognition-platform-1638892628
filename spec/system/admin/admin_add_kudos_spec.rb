@@ -18,16 +18,16 @@ RSpec.describe 'Adding Kudos to every employee', type: :system do
     tr1 = page.find("tr[data-user-email=\"#{employee1.email}\"]")
     tr2 = page.find("tr[data-user-email=\"#{employee2.email}\"]")
     tr3 = page.find("tr[data-user-email=\"#{employee3.email}\"]")
-    expect(tr1).to have_content employee1.number_of_available_kudos
-    expect(tr2).to have_content employee2.number_of_available_kudos
-    expect(tr3).to have_content employee3.number_of_available_kudos
+    expect(tr1).to have_content employee1.points
+    expect(tr2).to have_content employee2.points
+    expect(tr3).to have_content employee3.points
 
     fill_in 'employee_amount', with: number
     click_button 'Add points'
     expect(page).to have_content "Added #{number} points to every employee"
-    expect(tr1).to have_content employee1.number_of_available_kudos + number
-    expect(tr2).to have_content employee2.number_of_available_kudos + number
-    expect(tr3).to have_content employee3.number_of_available_kudos + number
+    expect(tr1).to have_content employee1.points + number
+    expect(tr2).to have_content employee2.points + number
+    expect(tr3).to have_content employee3.points + number
 
     fill_in 'employee_amount', with: wrong_number
     click_button 'Add points'
