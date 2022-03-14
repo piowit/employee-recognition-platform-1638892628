@@ -6,6 +6,7 @@
             <ul class="nav navbar-nav ms-auto w-100 justify-content-center">    
             <% if employee_signed_in? %>
                     <span class="nav-link">Received Points: <%= current_employee.points %></span>
+                    <span class="nav-link">Available Kudos: <%= current_employee.number_of_available_kudos %></span>
             <% end %>
             </ul>
             <ul class="nav navbar-nav ms-auto w-100 justify-content-end">            

@@ -12,6 +12,7 @@ RSpec.describe 'Employee account test', type: :system do
     click_button 'Sign up'
 
     expect(page).to have_content 'Welcome! You have signed up successfully.'
+    expect(page).to have_content 'Available Kudos: 10'
     click_link 'Log Out'
     click_link 'Log In'
     fill_in 'Email', with: 'john@doe.com'
