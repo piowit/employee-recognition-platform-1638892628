@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Kudo CRUD test', type: :system do
-  let!(:employee) { create(:employee) }
+  let!(:employee) { create(:employee, number_of_available_kudos: 1) }
   let!(:company_value1) { create(:company_value) }
   let!(:company_value2) { create(:company_value) }
 
@@ -14,8 +14,9 @@ RSpec.describe 'Kudo CRUD test', type: :system do
       click_link 'Kudos'
     end
 
-    it 'crud  kudo' do
+    it 'crud kudo' do
       # create kudo
+      expect(page).to have_content 'Available Kudos: 1'
       click_link 'New Kudo'
       fill_in 'Title', with: 'Title test1'
       fill_in 'Content', with: 'Content Test1'
@@ -26,6 +27,7 @@ RSpec.describe 'Kudo CRUD test', type: :system do
       expect(page).to have_content 'Content Test1'
       expect(page).to have_content company_value1.title
       expect(page).to have_content 'Received Points: 1'
+      expect(page).to have_content 'Available Kudos: 0'
 
       # edit kudo
       click_link 'Edit'
@@ -40,6 +42,12 @@ RSpec.describe 'Kudo CRUD test', type: :system do
       expect(page).to have_content 'Kudo was successfully destroyed'
       expect(page).not_to have_content 'Another Content Test1'
       expect(page).to have_content 'Received Points: 0'
+
+      # adding kudo without available kudos
+      click_link 'Kudos'
+      expect(page).to have_content 'Available Kudos: 0'
+      click_link 'New Kudo'
+      expect(page).to have_content 'You cannot give kudo! Not enough available kudos!'
     end
   end
 end

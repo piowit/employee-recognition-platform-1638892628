@@ -15,7 +15,11 @@ class KudosController < ApplicationController
 
   # GET /kudos/new
   def new
-    @kudo = Kudo.new
+    if current_employee.number_of_available_kudos < 1
+      redirect_to kudos_url, notice: 'You cannot give kudo! Not enough available kudos!'
+    else
+      @kudo = Kudo.new
+    end
   end
 
   # GET /kudos/1/edit
@@ -23,13 +27,18 @@ class KudosController < ApplicationController
 
   # POST /kudos
   def create
-    @kudo = Kudo.new(kudo_params)
-    @kudo.giver = current_employee
-
-    if @kudo.save
-      redirect_to @kudo, notice: 'Kudo was successfully created.'
+    if current_employee.number_of_available_kudos < 1
+      redirect_to kudos_path, notice: 'Kudo Not Added! Not enough available kudos.'
     else
-      render :new
+      @kudo = Kudo.new(kudo_params)
+      @kudo.giver = current_employee
+      @kudo.giver.number_of_available_kudos -= 1
+      @kudo.giver.save!
+      if @kudo.save
+        redirect_to @kudo, notice: 'Kudo was successfully created.'
+      else
+        render :new
+      end
     end
   end
 
