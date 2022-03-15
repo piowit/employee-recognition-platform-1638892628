@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :deliveries, only: %i[update]
     resources :orders, only: %i[index]
     resources :employees, only: %i[index] do
-      put 'add_kudos_for_all'
+      patch 'add_kudos_for_all'
     end
   end
 end
