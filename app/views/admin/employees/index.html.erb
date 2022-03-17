@@ -1,7 +1,7 @@
 <h2> Add number of available kudos to all employees</h2>
 <br/>
 
-<%= form_for :employee, url: admin_employee_add_kudos_for_all_path(@employees), method: :patch do |f| %>
+<%= form_with url: admin_employee_add_kudos_for_all_path(@employees), method: :patch do |f| %>
   <%= f.number_field :amount, in: 1..20, value: 1 %>
   <%= f.submit "Add points" %>
 <% end %>
