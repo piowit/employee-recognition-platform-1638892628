@@ -22,7 +22,7 @@ module Admin
     private
 
     def amount_param
-      params[:employee][:amount].to_i
+      params[:amount].to_i
     end
   end
 end
