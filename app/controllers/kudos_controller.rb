@@ -23,7 +23,9 @@ class KudosController < ApplicationController
   end
 
   # GET /kudos/1/edit
-  def edit; end
+  def edit
+    authorize @kudo
+  end
 
   # POST /kudos
   def create
@@ -53,6 +55,7 @@ class KudosController < ApplicationController
 
   # DELETE /kudos/1
   def destroy
+    authorize @kudo
     @kudo.destroy
     redirect_to kudos_url, notice: 'Kudo was successfully destroyed.'
   end
@@ -71,5 +74,9 @@ class KudosController < ApplicationController
   # Only allow a list of trusted parameters through.
   def kudo_params
     params.require(:kudo).permit(:title, :content, :giver_id, :receiver_id, :company_value_id)
+  end
+
+  def pundit_user
+    current_employee
   end
 end
