@@ -39,6 +39,14 @@ RSpec/LetSetup:
   Exclude:
     - spec/system/admin/* 
 
+Lint/MissingSuper:
+  Exclude:
+    - 'app/policies/*'
+
+RSpec/NamedSubject:
+  Exclude:
+    - 'spec/policies/*'
+
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 

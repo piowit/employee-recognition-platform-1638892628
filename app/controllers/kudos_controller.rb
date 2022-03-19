@@ -4,6 +4,7 @@ class KudosController < ApplicationController
   before_action :set_kudo, only: %i[show edit update destroy]
   before_action :authenticate_employee!
   before_action :check_kudo_giver, only: %i[edit update destroy]
+  rescue_from Pundit::NotAuthorizedError, with: :timelimit_for_edit_delete
 
   # GET /kudos
   def index
@@ -46,6 +47,7 @@ class KudosController < ApplicationController
 
   # PATCH/PUT /kudos/1
   def update
+    authorize @kudo
     if @kudo.update(kudo_params)
       redirect_to @kudo, notice: 'Kudo was successfully updated.'
     else
@@ -76,7 +78,14 @@ class KudosController < ApplicationController
     params.require(:kudo).permit(:title, :content, :giver_id, :receiver_id, :company_value_id)
   end
 
+  # customize Pundit user
   def pundit_user
     current_employee
+  end
+
+  # Rescuing a denied Pundit Authorization in Rails
+  def timelimit_for_edit_delete
+    flash[:notice] = 'You cannot edit or delete kudo 5 minutes after creation.'
+    redirect_to(request.referer || root_path)
   end
 end

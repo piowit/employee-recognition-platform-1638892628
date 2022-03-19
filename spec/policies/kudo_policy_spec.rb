@@ -5,25 +5,24 @@ require 'rails_helper'
 RSpec.describe KudoPolicy do
   subject { described_class }
 
-  let(:user) { User.new }
+  let(:employee) { create(:employee) }
+  let(:employee_wrong) { create(:employee) }
+  let(:kudo) { create(:kudo, giver: employee) }
 
-  permissions '.scope' do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  permissions :edit?, :update? do
+    it 'grants access if good employee and edit time less then 5 minutes' do
+      expect(subject).to permit(employee, kudo)
+    end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+    it 'denies access if wrong employee' do
+      expect(subject).not_to permit(employee_wrong, kudo)
+    end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it 'denies access if post is over 5 minute old' do
+      kudo_old = create(:kudo, giver: employee)
+      travel 6.minutes do
+        expect(subject).not_to permit(employee, kudo_old)
+      end
+    end
   end
 end

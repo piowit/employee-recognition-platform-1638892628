@@ -6,12 +6,16 @@ class KudoPolicy < ApplicationPolicy
     @kudo = kudo
   end
 
+  def edit?
+    created_within_time(@kudo) && @kudo.giver == @user
+  end
+
   def update?
-    created_within_time(@kudo)
+    created_within_time(@kudo) && @kudo.giver == @user
   end
 
   def destroy?
-    created_within_time(@kudo)
+    created_within_time(@kudo) && @kudo.giver == @user
   end
 
   private
