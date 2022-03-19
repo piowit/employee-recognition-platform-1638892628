@@ -14,7 +14,7 @@
 
   <tbody>
     <% @kudos.each do |kudo| %>
-      <tr>
+      <tr data-kudo-id="<%= kudo.id %>">
         <td><%= kudo.title %></td>
         <td><%= kudo.content %></td>
         <td><%= kudo.giver.email %></td>
