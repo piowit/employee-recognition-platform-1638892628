@@ -9,7 +9,7 @@ class RewardsController < ApplicationController
     page = params[:page].to_i || 0
     count_pages = (Reward.count.to_f / 10).ceil
     rewards = Reward.limit(REWARDS_PER_PAGE).offset(page * REWARDS_PER_PAGE)
-    render 'index', locals: {count_pages: count_pages, rewards: rewards }
+    render 'index', locals: { page: page, count_pages: count_pages, rewards: rewards }
   end
 
   def show

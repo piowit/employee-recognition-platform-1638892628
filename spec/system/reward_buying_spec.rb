@@ -40,5 +40,24 @@ RSpec.describe 'Reward buying', type: :system do
       expect(page).to have_content 'Reward bought'
       expect(page).to have_content 'Received Points: 0'
     end
+
+    it 'checks pagination' do
+      create_list(:reward, 25)
+      click_link 'Rewards'
+      expect(page).to have_link '3'
+      expect(page).not_to have_link '4'
+      click_link '3'
+      expect(page).to have_content 'Page 3'
+      expect(page).to have_content Reward.last.title
+      expect(page).not_to have_content Reward.first.title
+      click_link '2'
+      expect(page).to have_content 'Page 2'
+      expect(page).not_to have_content Reward.last.title
+      expect(page).not_to have_content Reward.first.title
+      click_link '1'
+      expect(page).to have_content 'Page 1'
+      expect(page).not_to have_content Reward.last.title
+      expect(page).to have_content Reward.first.title
+    end
   end
 end
