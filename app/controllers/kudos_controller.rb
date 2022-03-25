@@ -5,12 +5,9 @@ class KudosController < ApplicationController
   before_action :authenticate_employee!
   before_action :check_kudo_giver, only: %i[edit update destroy]
 
-  REWARDS_PER_PAGE = 2
-
   # GET /kudos
   def index
-    @page = 1
-    @kudos = Kudo.includes(:company_value, :giver, :receiver).limit(REWARDS_PER_PAGE).offset(@page * REWARDS_PER_PAGE)
+    @kudos = Kudo.includes(:company_value, :giver, :receiver)
   end
 
   # GET /kudos/1
