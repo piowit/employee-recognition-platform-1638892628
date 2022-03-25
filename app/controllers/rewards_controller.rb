@@ -3,10 +3,11 @@
 class RewardsController < ApplicationController
   before_action :authenticate_employee!
 
-  REWARDS_PER_PAGE = 2
+  REWARDS_PER_PAGE = 10
 
   def index
-    @page = 1
+    @page = params[:page].to_i || 0
+    @count_pages = (Reward.count.to_f/10).ceil
     @rewards = Reward.limit(REWARDS_PER_PAGE).offset(@page * REWARDS_PER_PAGE)
   end
 

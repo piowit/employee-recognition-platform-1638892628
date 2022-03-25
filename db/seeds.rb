@@ -25,5 +25,6 @@ Kudo.create!(title: Faker::Food.dish, content: Faker::Food.description, giver_id
 Kudo.create!(title: Faker::Food.dish, content: Faker::Food.description, giver_id: employee5.id, receiver_id: employee2.id, company_value: cv1)
 Kudo.create!(title: Faker::Food.dish, content: Faker::Food.description, giver_id: employee6.id, receiver_id: employee1.id, company_value: cv2)
 
-Reward.create!(title: Faker::Commerce.product_name, description: Faker::GreekPhilosophers.quote, price: 1)
-Reward.create!(title: Faker::Commerce.product_name, description: Faker::GreekPhilosophers.quote, price: 2)
+15.times do |x|
+  Reward.create!(title: Faker::Commerce.product_name, description: Faker::GreekPhilosophers.quote, price: x+1)  
+end

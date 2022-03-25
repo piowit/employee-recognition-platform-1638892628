@@ -11,7 +11,7 @@
 
   <tbody>
     <% @rewards.each do |reward| %>
-      <tr>
+      <tr data-reward-id="<%= reward.id %>">
         <td><%= reward.title %></td>
         <td><%= reward.price %></td>
         <td><%= link_to "Buy", orders_path(reward: reward,), method: :post, class: "btn btn-success btn-sm" %><%= link_to 'Show', reward_path(reward), class: 'btn btn-outline-primary btn-sm' %></td>
@@ -19,3 +19,9 @@
     <% end %>
   </tbody>
 </table>
+
+<div class="d-flex justify-content-center"  >
+  <% @count_pages.times do |x|%>
+    <%= link_to x+1, rewards_path(page: x), class: "btn btn-primary btn-sm" %>
+  <% end %>
+</div>
