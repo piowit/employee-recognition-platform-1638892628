@@ -10,7 +10,7 @@
   </thead>
 
   <tbody>
-    <% @rewards.each do |reward| %>
+    <% rewards.each do |reward| %>
       <tr data-reward-id="<%= reward.id %>">
         <td><%= reward.title %></td>
         <td><%= reward.price %></td>
@@ -21,7 +21,7 @@
 </table>
 
 <div class="d-flex justify-content-center"  >
-  <% @count_pages.times do |x|%>
+  <% count_pages.times do |x|%>
     <%= link_to x+1, rewards_path(page: x), class: "btn btn-primary btn-sm" %>
   <% end %>
 </div>
