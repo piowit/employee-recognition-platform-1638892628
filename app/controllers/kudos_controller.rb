@@ -34,9 +34,10 @@ class KudosController < ApplicationController
     else
       @kudo = Kudo.new(kudo_params)
       @kudo.giver = current_employee
-      @kudo.giver.number_of_available_kudos -= 1
-      @kudo.giver.save
       if @kudo.save
+        @kudo.giver.number_of_available_kudos -= 1
+
+        @kudo.giver.save
         redirect_to @kudo, notice: 'Kudo was successfully created.'
       else
         render :new
