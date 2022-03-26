@@ -35,7 +35,7 @@ class KudosController < ApplicationController
       @kudo = Kudo.new(kudo_params)
       @kudo.giver = current_employee
       @kudo.giver.number_of_available_kudos -= 1
-      @kudo.giver.save!
+      @kudo.giver.save
       if @kudo.save
         redirect_to @kudo, notice: 'Kudo was successfully created.'
       else
