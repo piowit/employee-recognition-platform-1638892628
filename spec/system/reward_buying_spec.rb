@@ -40,10 +40,20 @@ RSpec.describe 'Reward buying', type: :system do
       expect(page).to have_content 'Reward bought'
       expect(page).to have_content 'Received Points: 0'
     end
+  end
 
+  context 'when want to paginate rewards' do
+    before do
+      login_as employee, scope: :employee
+      visit root_path
+      click_link 'Rewards'
+    end
     it 'checks pagination' do
       create_list(:reward, 25)
       click_link 'Rewards'
+      within('#rewards_table') do
+        expect(all('tr').count).to eq(11)
+      end
       expect(page).to have_link '3'
       expect(page).not_to have_link '4'
       click_link '3'
