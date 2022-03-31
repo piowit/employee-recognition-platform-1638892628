@@ -42,13 +42,14 @@ RSpec.describe 'Reward buying', type: :system do
     end
   end
 
-  context 'when want to paginate rewards' do
+  context 'when want to view available rewards' do
     before do
       login_as employee, scope: :employee
       visit root_path
       click_link 'Rewards'
     end
-    it 'checks pagination' do
+
+    it 'paginates rewards' do
       create_list(:reward, 25)
       click_link 'Rewards'
       within('#rewards_table') do

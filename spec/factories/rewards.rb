@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :reward do
-    sequence(:title) { |i| "Title#{i}abc" }
-    sequence(:description) { |i| "Description#{i}abc" }
+    sequence(:title) { |i| "Title#{'%3d' % i}" }
+    sequence(:description) { |i| "Description#{'%3d' % i}" }
     sequence(:price) { |i| i }
   end
 end
