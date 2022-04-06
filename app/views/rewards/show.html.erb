@@ -10,6 +10,12 @@
             <li><h4>Title: <%= @reward.title %></h4></li>
             <li>Description: <%= @reward.description %></li>
             <li>Price: <%= @reward.price %></li>
+            <li>Categories:</li>
+            <ul>
+              <% @reward.categories.each do |category| %>
+              <li><%= category.title %></li>
+              <% end %>
+            </ul>
           </ul>
         </div>
       </div>
