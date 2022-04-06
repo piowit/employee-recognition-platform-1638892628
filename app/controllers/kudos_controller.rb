@@ -35,11 +35,14 @@ class KudosController < ApplicationController
       @kudo = Kudo.new(kudo_params)
       @kudo.giver = current_employee
       @kudo.giver.number_of_available_kudos -= 1
-      @kudo.giver.save!
-      if @kudo.save
+      begin
+        ActiveRecord::Base.transaction do
+          @kudo.giver.save!
+          @kudo.save!
+        end
         redirect_to @kudo, notice: 'Kudo was successfully created.'
-      else
-        render :new
+      rescue ActiveRecord::RecordInvalid => e
+        render :new, notice: e.message
       end
     end
   end

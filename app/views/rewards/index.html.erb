@@ -1,6 +1,6 @@
 <h1>Available Rewards:</h1>
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" id="rewards_table">
   <thead class="table-secondary">
     <tr>
       <th>Title</th>
@@ -10,8 +10,8 @@
   </thead>
 
   <tbody>
-    <% @rewards.each do |reward| %>
-      <tr>
+    <% rewards.each do |reward| %>
+      <tr data-reward-id="<%= reward.id %>">
         <td><%= reward.title %></td>
         <td><%= reward.price %></td>
         <td><%= link_to "Buy", orders_path(reward: reward,), method: :post, class: "btn btn-success btn-sm" %><%= link_to 'Show', reward_path(reward), class: 'btn btn-outline-primary btn-sm' %></td>
@@ -19,3 +19,15 @@
     <% end %>
   </tbody>
 </table>
+<h5>Page <%= page+1 %></h5>
+<div class="d-flex justify-content-left" >
+  <ul class="pagination">
+    <% (page).times do |x|%>
+      <li class="page-item"><%= link_to x+1, rewards_path(page: x), class: "page-link" %></li>
+    <% end %>
+    <li class="page-item active"><%= link_to page+1, rewards_path(page: page), class: "page-link" %></li>
+    <% (count_pages-page-1).times do |y|%>
+      <li class="page-item"><%= link_to y+2+page, rewards_path(page: y+1+page), class: "page-link" %></li>
+    <% end %>
+  </ul>
+</div>
