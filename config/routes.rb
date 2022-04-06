@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :kudos
     resources :company_values
     resources :rewards
+    resources :categories
     resources :deliveries, only: %i[update]
     resources :orders, only: %i[index]
     resources :employees, only: %i[index] do

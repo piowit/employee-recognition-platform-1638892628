@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_14_185213) do
+ActiveRecord::Schema.define(version: 2022_04_06_110152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,21 @@ ActiveRecord::Schema.define(version: 2022_03_14_185213) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "category_rewards", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "reward_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_category_rewards_on_category_id"
+    t.index ["reward_id"], name: "index_category_rewards_on_reward_id"
   end
 
   create_table "company_values", force: :cascade do |t|
@@ -78,6 +93,8 @@ ActiveRecord::Schema.define(version: 2022_03_14_185213) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "category_rewards", "categories"
+  add_foreign_key "category_rewards", "rewards"
   add_foreign_key "kudos", "company_values"
   add_foreign_key "kudos", "employees", column: "giver_id"
   add_foreign_key "orders", "employees"
