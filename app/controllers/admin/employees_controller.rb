@@ -8,7 +8,7 @@ module Admin
 
     def add_kudos_for_all
       if amount_param.between? 1, 20
-        @employees = Employee.all
+        @employees = Employee.find_each
         @employees.each do |employee|
           employee.number_of_available_kudos += amount_param
           redirect_to admin_employees_path, notice: 'Ups! Something went wrong' unless employee.save!
