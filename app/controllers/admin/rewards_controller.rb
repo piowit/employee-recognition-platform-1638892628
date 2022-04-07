@@ -16,33 +16,19 @@ module Admin
 
     def create
       @reward = Reward.new(reward_params)
-      begin
-        ActiveRecord::Base.transaction do
-          @reward.update!(reward_params)
-          @reward.categories.clear
-          params[:reward][:category_ids]&.each do |category_id|
-            @reward.categories << Category.find(category_id)
-          end
-          redirect_to admin_rewards_path, notice: 'Reward was successfully created.'
-        end
-      rescue ActiveRecord::RecordInvalid => e
-        render :new, notice: e.message
+      if @reward.save
+        redirect_to admin_rewards_path, notice: 'Reward was successfully created.'
+      else
+        render :new
       end
     end
 
     def update
       @reward = Reward.find(params[:id])
-      begin
-        ActiveRecord::Base.transaction do
-          @reward.update!(reward_params)
-          @reward.categories.clear
-          params[:reward][:category_ids]&.each do |category_id|
-            @reward.categories << Category.find(category_id)
-          end
-          redirect_to admin_rewards_path, notice: 'Reward was successfully updated.'
-        end
-      rescue ActiveRecord::RecordInvalid => e
-        render :edit, notice: e.message
+      if @reward.update(reward_params)
+        redirect_to admin_rewards_path, notice: 'Reward was successfully updated.'
+      else
+        render :edit
       end
     end
 
@@ -55,7 +41,7 @@ module Admin
     private
 
     def reward_params
-      params.require(:reward).permit(:title, :description, :price, :category_ids)
+      params.require(:reward).permit(:title, :description, :price, category_ids: [])
     end
   end
 end

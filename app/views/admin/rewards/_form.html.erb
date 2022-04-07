@@ -28,7 +28,7 @@
 
 <div class="field">
   <%= form.label 'Categories' %>
-  <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, include_hidden: false %>
+  <%= form.collection_check_boxes :category_ids, Category.all, :id, :title %>
 </div>
 
 <div class="actions">
