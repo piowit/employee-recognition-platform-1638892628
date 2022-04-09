@@ -11,7 +11,7 @@ RSpec.describe 'Reward categories', type: :system do
     login_as admin, scope: :admin_user
     visit admin_root_path
 
-    # create new categorie
+    # create new category
     click_link 'Categories'
     click_link 'New Category'
     click_button 'Create Category'
@@ -21,7 +21,7 @@ RSpec.describe 'Reward categories', type: :system do
     expect(page).to have_content 'Category was successfully created.'
     expect(page).to have_content category.title
 
-    # add reward to categorie
+    # add reward to category
     click_link 'Rewards'
     click_link 'Edit'
     expect(page).to have_unchecked_field(category.title)
@@ -30,13 +30,13 @@ RSpec.describe 'Reward categories', type: :system do
     click_link 'Edit'
     expect(page).to have_checked_field(category.title)
 
-    # try to destroy categorie that have reward in it
+    # try to destroy category that have reward in it
     click_link 'Categories'
     expect(page).to have_content category.title
     click_link 'Destroy'
     expect(page).to have_content 'Category must be empty in order to delete it.'
 
-    # remove reward from categorie
+    # remove reward from category
     click_link 'Rewards'
     click_link 'Edit'
     uncheck category.title
@@ -44,7 +44,7 @@ RSpec.describe 'Reward categories', type: :system do
     click_link 'Edit'
     expect(page).to have_unchecked_field(category.title)
 
-    # destroy empty categorie
+    # destroy empty category
     click_link 'Categories'
     expect(page).to have_content category.title
     click_link 'Destroy'

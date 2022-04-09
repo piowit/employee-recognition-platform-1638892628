@@ -34,7 +34,7 @@ module Admin
 
     def destroy
       @category = Category.find(params[:id])
-      if @category.rewards.count.positive?
+      if @category.rewards.any?
         redirect_to admin_categories_path, notice: 'Category must be empty in order to delete it.'
       else
         @category.destroy
