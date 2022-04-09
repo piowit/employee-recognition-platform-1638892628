@@ -5,6 +5,6 @@ class Reward < ApplicationRecord
   validates :title, :description, :price, presence: true
 
   has_many :orders, dependent: :nullify
-  has_many :category_rewards, dependent: :nullify
+  has_many :category_rewards, dependent: :destroy
   has_many :categories, through: :category_rewards
 end
