@@ -26,15 +26,5 @@
     <% end %>
   </tbody>
 </table>
-<h5>Page <%= page+1 %></h5>
-<div class="d-flex justify-content-left" >
-  <ul class="pagination">
-    <% (page).times do |x|%>
-      <li class="page-item"><%= link_to x+1, rewards_path(page: x, category: params[:category] ), class: "page-link" %></li>
-    <% end %>
-    <li class="page-item active"><%= link_to page+1, rewards_path(page: page, category: params[:category]), class: "page-link" %></li>
-    <% (count_pages-page-1).times do |y|%>
-      <li class="page-item"><%= link_to y+2+page, rewards_path(page: y+1+page, category: params[:category]), class: "page-link" %></li>
-    <% end %>
-  </ul>
-</div>
+
+<%= render 'pages/pagination', page: page, count_pages: count_pages %>
