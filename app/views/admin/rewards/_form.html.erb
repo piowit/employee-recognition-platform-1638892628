@@ -28,7 +28,13 @@
 
 <div class="field">
   <%= form.label 'Categories' %>
-  <%= form.collection_check_boxes :category_ids, Category.all, :id, :title %>
+  <br />
+  <%= form.collection_check_boxes :category_ids, Category.all, :id, :title do |b| %>
+    <label class="form-check-label">
+      <%= b.check_box %>
+      <%= b.label %>
+    </label><br />
+  <% end %>
 </div>
 
 <div class="actions">
