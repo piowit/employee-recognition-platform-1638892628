@@ -3,7 +3,7 @@
 module Admin
   class RewardsController < AdminController
     def index
-      @rewards = Reward.all
+      @rewards = Reward.all.order(:title)
     end
 
     def edit
@@ -41,7 +41,7 @@ module Admin
     private
 
     def reward_params
-      params.require(:reward).permit(:title, :description, :price, category_ids: [])
+      params.require(:reward).permit(:title, :description, :price, :photo, category_ids: [])
     end
   end
 end

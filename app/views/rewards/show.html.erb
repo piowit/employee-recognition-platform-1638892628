@@ -8,6 +8,9 @@
         <div class="card-body">
           <ul class="list-unstyled mt-3 mb-4">
             <li><h4>Title: <%= @reward.title %></h4></li>
+            <% if @reward.photo.attached? %>
+              <li>Photo: <%= image_tag @reward.photo, width: '200px' %></li>
+            <% end %>
             <li>Description: <%= @reward.description %></li>
             <li>Price: <%= @reward.price %></li>
             <li>Categories:</li>
