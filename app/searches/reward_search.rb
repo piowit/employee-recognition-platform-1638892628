@@ -2,7 +2,7 @@
 
 class RewardSearch < Searchlight::Search
   def base_query
-    Reward.all
+    Reward.all.order(:title)
   end
 
   def search_category
