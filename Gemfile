@@ -9,6 +9,7 @@ gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise', '~> 4.8'
 gem 'faker', '~> 1.6', '>= 1.6.3'
+gem 'file_validators'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'pundit', github: 'varvet/pundit'
