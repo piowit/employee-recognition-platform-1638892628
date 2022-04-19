@@ -2,7 +2,8 @@
 
 class RewardSearch < Searchlight::Search
   def base_query
-    Reward.all.order(:title)
+    Reward.all.order(:title).includes([photo_attachment: :blob])
+    # include created as suggested here https://github.com/flyerhzm/bullet/issues/474
   end
 
   def search_category
