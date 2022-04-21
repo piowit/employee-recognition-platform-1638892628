@@ -22,7 +22,7 @@
       <tr data-reward-id="<%= reward.id %>">
         <td><%= reward.title %></td>
         <td><%= reward.price %></td>
-        <th><% if reward.photo.attached?%> <%= image_tag reward.photo, width: '80px' %> <% end %></th>
+        <th><% if reward.photo.attached? %> <%= image_tag reward.photo, width: '80px' %> <% end %></th>
         <td><%= link_to "Buy", orders_path(reward: reward,), method: :post, class: "btn btn-success btn-sm" %><%= link_to 'Show', reward_path(reward), class: 'btn btn-outline-primary btn-sm' %></td>
       </tr>
     <% end %>

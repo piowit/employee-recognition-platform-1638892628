@@ -3,7 +3,7 @@
 module Admin
   class RewardsController < AdminController
     def index
-      @rewards = Reward.all.order(:title)
+      @rewards = Reward.all.with_attached_photo.order(:title)
     end
 
     def edit
