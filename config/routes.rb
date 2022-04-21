@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :deliveries, only: %i[update]
     resources :orders, only: %i[index]
+    get 'orders/export', to: 'orders#export'
     resources :employees, only: %i[index] do
       patch 'add_kudos_for_all'
     end
