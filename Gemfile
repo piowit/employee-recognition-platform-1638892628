@@ -37,6 +37,7 @@ group :development, :test do
   gem 'letter_opener'
   gem 'nokogiri', '~> 1.12', '>= 1.12.5'
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'tempfile'
 end
 
 group :development do

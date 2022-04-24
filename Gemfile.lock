@@ -282,6 +282,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    tempfile (0.1.2)
     thor (1.2.1)
     tilt (2.0.10)
     tzinfo (2.0.4)
@@ -344,6 +345,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 5.0)
   spring
+  tempfile
   tzinfo-data
   web-console (>= 4.1.0)
   webdrivers
