@@ -4,9 +4,9 @@
                'description',
                'price',
                'delivered'] -%>
-<%= CSV.generate_line headers %>
+<%=raw CSV.generate_line headers %>
 <%- @orders.each do |order| -%>
-  <%= CSV.generate_line([order.created_at,
+  <%=raw CSV.generate_line([order.created_at,
                          order.employee.email, 
                          order.reward_snapshot.title, 
                          order.reward_snapshot.description, 
