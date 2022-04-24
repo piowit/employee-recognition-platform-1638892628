@@ -15,7 +15,8 @@ module Admin
         format.csv do
           response.headers['Content-Type'] = 'text/csv'
           response.headers['Content-Disposition'] = 'attachment; filename=orders.csv'
-          render template: 'admin/orders/export.csv.erb'
+          # render template: 'admin/orders/export.csv.erb'
+          render template: 'admin/orders/export', handlers: [:erb], formats: [:csv]
         end
       end
     end
