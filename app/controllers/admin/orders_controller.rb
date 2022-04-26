@@ -9,15 +9,11 @@ module Admin
     end
 
     def export
-      @orders = Order.order(:delivered)
+      @orders = Order.includes(:employee).order(:delivered)
 
-      respond_to do |format|
-        format.csv do
-          response.headers['Content-Type'] = 'text/csv'
-          response.headers['Content-Disposition'] = "attachment; filename=orders_#{Time.zone.now.strftime('%y%m%d_%H-%M-%S')}.csv"
-          render template: 'admin/orders/export', handlers: [:erb], formats: [:csv]
-        end
-      end
+      response.headers['Content-Type'] = 'text/csv'
+      response.headers['Content-Disposition'] = "attachment; filename=orders_#{Time.zone.now.strftime('%y%m%d_%H-%M-%S')}.csv"
+      render template: 'admin/orders/export', handlers: [:erb], formats: [:csv]
     end
   end
 end
