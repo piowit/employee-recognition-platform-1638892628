@@ -59,16 +59,16 @@ RSpec.describe 'Reward buying', type: :system do
       expect(page).not_to have_link '4'
       click_link '3'
       expect(page).to have_content 'Page 3'
-      expect(page).to have_content Reward.last.title
-      expect(page).not_to have_content Reward.first.title
+      expect(page).to have_content Reward.order(:title).last.title
+      expect(page).not_to have_content Reward.order(:title).first.title
       click_link '2'
       expect(page).to have_content 'Page 2'
-      expect(page).not_to have_content Reward.last.title
-      expect(page).not_to have_content Reward.first.title
+      expect(page).not_to have_content Reward.order(:title).last.title
+      expect(page).not_to have_content Reward.order(:title).first.title
       click_link '1'
       expect(page).to have_content 'Page 1'
-      expect(page).not_to have_content Reward.last.title
-      expect(page).to have_content Reward.first.title
+      expect(page).not_to have_content Reward.order(:title).last.title
+      expect(page).to have_content Reward.order(:title).first.title
     end
   end
 end

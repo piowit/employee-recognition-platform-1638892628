@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :company_value do
-    sequence(:title) { |i| "Helpful#{i}" }
+    sequence(:title) { |i| SecureRandom.base64(20) + format('%03d', i) }
   end
 end
