@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :kudo do
-    title { 'Title' }
-    content { 'Content' }
+    title { SecureRandom.base64(20) }
+    content { SecureRandom.base64(20) }
     giver { create(:employee) }
     receiver { create(:employee) }
     company_value
