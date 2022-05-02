@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :kudo do
-    title { SecureRandom.base64(20) }
-    content { SecureRandom.base64(20) }
+    sequence(:title) { |i| "Title#{format('%03d', i)}" }
+    sequence(:content) { |i| "Content#{format('%03d', i)}" }
     giver { create(:employee) }
     receiver { create(:employee) }
     company_value
