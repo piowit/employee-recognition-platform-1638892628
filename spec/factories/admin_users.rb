@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :admin_user do
-    sequence(:email) { |i| "admin#{i}@#{SecureRandom.base64(8)}.com" }
+    sequence(:email) { |i| "admin#{i}@admin.com" }
     password { 'password' }
   end
 end
