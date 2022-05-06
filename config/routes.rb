@@ -14,11 +14,15 @@ Rails.application.routes.draw do
     root to: 'pages#dashboard'
     resources :kudos
     resources :company_values
-    resources :rewards
+    resources :rewards do
+      collection { post :import }
+      collection { get :export }
+    end
     resources :categories
     resources :deliveries, only: %i[update]
-    resources :orders, only: %i[index]
-    get 'orders/export', to: 'orders#export'
+    resources :orders, only: %i[index] do
+      collection { get :export }
+    end
     resources :employees, only: %i[index] do
       patch 'add_kudos_for_all'
     end

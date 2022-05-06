@@ -1,0 +1,2 @@
+<% headers = ['slug', 'title', 'description', 'price'] -%><%= CSV.generate_line headers -%>
+<% @rewards.each do |reward| -%><%= CSV.generate_line([reward.slug, reward.title, reward.description, reward.price]).html_safe -%><% end -%>

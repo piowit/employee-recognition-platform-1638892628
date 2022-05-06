@@ -1,9 +1,21 @@
 <h1>Manage Rewards</h1>
 
+<%= link_to 'Download all rewards as CSV', export_admin_rewards_path, class: 'btn btn-outline-success btn-sm' %>
+
+<%= form_tag import_admin_rewards_path, multipart: true, class: 'form-inline' do %>
+  <div class="form-group">
+    <%= file_field_tag :file, class: '' %>
+  </div>
+  
+  <div class="form-group">
+    <%= submit_tag "Import CSV", class: 'btn btn-outline-success btn-sm' %>
+  </div>
+<% end %>
 <table class="table table-striped table-hover">
   <thead class="table-secondary">
     <tr>
       <th>Title</th>
+      <th>Slug</th>
       <th class="col-md-8">Description</th>
       <th>Price</th>
       <th>Photo</th>
@@ -15,6 +27,7 @@
     <% @rewards.each do |reward| %>
       <tr>
         <td><%= reward.title %></td>
+        <td><%= reward.slug %></td>
         <td><%= reward.description %></td>
         <td><%= reward.price %></td>
         <th><% if reward.photo.attached?%> <%= image_tag reward.photo, height: '50px' %> <% end %></th>

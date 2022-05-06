@@ -18,13 +18,7 @@ RSpec.describe 'Admin orders export csv' do
     click_link 'Orders'
     click_on 'Download all orders as CSV'
 
-    # write new Tempfile
-    file = Tempfile.new
-    file.write(page.body)
-    file.rewind
-    csv = file.read
-    file.close
-    file.unlink
+    csv = CSV.new(page.body).read
 
     expect(csv).to have_content order1.reward_snapshot.title
     expect(csv).to have_content order1.reward_snapshot.description
