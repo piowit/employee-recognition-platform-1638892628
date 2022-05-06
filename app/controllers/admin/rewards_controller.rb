@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 module Admin
   class RewardsController < AdminController
     def index
@@ -16,6 +18,7 @@ module Admin
 
     def create
       @reward = Reward.new(reward_params)
+      @reward.slug = @reward.title.parameterize
       if @reward.save
         redirect_to admin_rewards_path, notice: 'Reward was successfully created.'
       else
@@ -25,6 +28,7 @@ module Admin
 
     def update
       @reward = Reward.find(params[:id])
+      @reward.slug = reward_params[:title].parameterize
       if @reward.update(reward_params)
         redirect_to admin_rewards_path, notice: 'Reward was successfully updated.'
       else
@@ -36,6 +40,23 @@ module Admin
       @reward = Reward.find(params[:id])
       @reward.destroy
       redirect_to admin_rewards_path, notice: 'Reward was successfully destroyed.'
+    end
+
+    def export
+      @rewards = Reward.all.order(:title)
+
+      response.headers['Content-Type'] = 'text/csv'
+      response.headers['Content-Disposition'] = "attachment; filename=rewards_#{Time.zone.now.strftime('%y%m%d_%H-%M-%S')}.csv"
+      render template: 'admin/rewards/export', handlers: [:erb], formats: [:csv]
+    end
+
+    def import
+      if params[:file].nil?
+        redirect_to admin_rewards_path, notice: 'No file selected.'
+      else
+        Reward.import(params[:file])
+        redirect_to admin_rewards_path, notice: 'Rewards imported.'
+      end
     end
 
     private
