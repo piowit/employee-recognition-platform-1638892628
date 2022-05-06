@@ -57,6 +57,8 @@ module Admin
         Reward.import(params[:file])
         redirect_to admin_rewards_path, notice: 'Rewards imported.'
       end
+    rescue ActiveRecord::RecordInvalid => e
+      redirect_to admin_rewards_path, notice: e
     end
 
     private
