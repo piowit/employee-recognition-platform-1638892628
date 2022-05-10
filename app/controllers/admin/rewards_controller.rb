@@ -53,12 +53,16 @@ module Admin
     def import
       if params[:file].nil?
         redirect_to admin_rewards_path, notice: 'No file selected.'
+      elsif File.extname(params[:file]) != '.csv'
+        redirect_to admin_rewards_path, notice: 'File is not a ".csv"'
       else
         Reward.import(params[:file])
         redirect_to admin_rewards_path, notice: 'Rewards imported.'
       end
     rescue ActiveRecord::RecordInvalid => e
-      redirect_to admin_rewards_path, notice: e
+      redirect_to admin_rewards_path, notice: "Problem with CSV file. \"#{e}\""
+    rescue CSV::MalformedCSVError => e
+      redirect_to admin_rewards_path, notice: "Problem with CSV file. \"#{e}\""
     end
 
     private

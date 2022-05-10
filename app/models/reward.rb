@@ -15,7 +15,7 @@ class Reward < ApplicationRecord
     ActiveRecord::Base.transaction do
       CSV.foreach(file.path, headers: true) do |row|
         reward_hash = row.to_hash
-        unless reward_hash['slug'].nil?
+        if reward_hash['slug'].present?
           reward = Reward.find_or_initialize_by(slug: reward_hash['slug'])
           reward.slug = reward_hash['title'].parameterize
           reward.title = reward_hash['title']
