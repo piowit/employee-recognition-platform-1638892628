@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resources :orders, only: %i[index] do
       collection { get :export }
     end
-    resources :employees, only: %i[index] do
+    resources :employees do
       patch 'add_kudos_for_all'
     end
   end

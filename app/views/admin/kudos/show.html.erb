@@ -9,8 +9,16 @@
           <ul class="list-unstyled mt-3 mb-4">
             <li><h2><%= @kudo.title %></h2></li>
             <li><h4><%= @kudo.content %></h4></li>
-            <li>To: <%= @kudo.receiver.email %></li>
+            <% if @kudo.receiver.first_name.nil? || @kudo.receiver.last_name.nil? %>
+            <li>From: <%= @kudo.receiver.email %></li>
+            <% else %>
+            <li>To: <%= @kudo.receiver.first_name + " " + @kudo.receiver.last_name %></li>
+            <% end %>
+            <% if @kudo.giver.first_name.nil? || @kudo.giver.last_name.nil? %>
             <li>From: <%= @kudo.giver.email %></li>
+            <% else %>
+            <li>From: <%= @kudo.giver.first_name + " " + @kudo.giver.last_name %></li>
+            <% end %>
             <li>Value: <%= @kudo.company_value.title %></li>
           </ul>
         </div>
