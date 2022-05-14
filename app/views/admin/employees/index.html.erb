@@ -19,9 +19,15 @@
   <tbody>
     <% @employees.each do |employee| %>
       <tr data-user-email="<%= employee.email %>">
-        <td><%= employee.email %></td>
+        <% if employee.first_name.nil? || employee.last_name.nil? %>
+          <td><%= employee.email %></td>
+        <% else %>
+          <td><%= employee.first_name + " " + employee.last_name %></td>
+        <% end %>
         <td><%= employee.points %></td>
         <td><%= employee.number_of_available_kudos %></td>
+        <td><%= link_to 'Edit', edit_admin_employee_path(employee), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Destroy', admin_employee_path(employee), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>

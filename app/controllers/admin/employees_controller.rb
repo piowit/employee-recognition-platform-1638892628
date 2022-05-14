@@ -6,6 +6,26 @@ module Admin
       @employees = Employee.all
     end
 
+    def edit
+      @employee = Employee.find(params[:id])
+    end
+
+    def update
+      @employee = Employee.find(params[:id])
+      check_password_params = employee_params
+      check_password_params.delete(:password) if check_password_params[:password].blank?
+      if @employee.update(check_password_params)
+        redirect_to admin_employees_path, notice: 'Employee was successfully updated.'
+      else
+        render :edit
+      end
+    end
+
+    def destroy
+      @employee.destroy
+      redirect_to admin_employees_path, notice: 'Kudo was successfully destroyed.'
+    end
+
     def add_kudos_for_all
       if amount_param.between? 1, 20
         begin
@@ -29,6 +49,10 @@ module Admin
 
     def amount_param
       params[:amount].to_i
+    end
+
+    def employee_params
+      params.require(:employee).permit(:first_name, :last_name, :email, :password)
     end
   end
 end

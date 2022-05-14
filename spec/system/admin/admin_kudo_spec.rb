@@ -26,7 +26,7 @@ RSpec.describe 'admin crud', type: :system do
     click_button 'Create Kudo'
     expect(page).to have_content 'Kudo was successfully created.'
     expect(page).to have_content 'test title1'
-    expect(page).to have_content employee1.email
+    expect(page).to have_content employee1.last_name
     expect(page).to have_content company_value1.title
 
     click_link 'Edit'
@@ -36,8 +36,8 @@ RSpec.describe 'admin crud', type: :system do
     select company_value2.title, from: 'kudo[company_value_id]'
     click_button 'Update Kudo'
     expect(page).to have_content 'test title2'
-    expect(page).to have_content employee2.email
-    expect(page).not_to have_content employee1.email
+    expect(page).to have_content employee2.last_name
+    expect(page).not_to have_content employee1.last_name
     expect(page).not_to have_content company_value1.title
     expect(page).to have_content company_value2.title
     click_link 'Back'

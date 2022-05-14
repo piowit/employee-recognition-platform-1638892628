@@ -14,7 +14,7 @@ RSpec.describe 'Adding Kudos to every employee', type: :system do
   it 'tests adding kudos to employees' do
     login_as admin, scope: :admin_user
     visit admin_root_path
-    click_link 'Add Kudos'
+    click_link 'Employees'
     tr1 = page.find("tr[data-user-email=\"#{employee1.email}\"]")
     tr2 = page.find("tr[data-user-email=\"#{employee2.email}\"]")
     tr3 = page.find("tr[data-user-email=\"#{employee3.email}\"]")

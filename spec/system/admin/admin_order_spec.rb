@@ -30,7 +30,7 @@ RSpec.describe 'Order spec', type: :system do
     click_link 'Admin'
     click_link 'Orders'
     expect(page).to have_content order.reward.title
-    expect(page).to have_content order.employee.email
+    expect(page).to have_content order.employee.last_name
 
     # edit reward title with 'reward2reward2'
     visit root_path

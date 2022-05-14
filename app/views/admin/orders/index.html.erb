@@ -19,7 +19,11 @@
       <% @orders.each do |order| %>
         <tr>
           <td><%= order.created_at.strftime("%d-%m-%y %H:%M") %></td>
-          <td><%= order.employee.email %></td>
+          <% if order.employee.first_name.nil? || order.employee.last_name.nil? %>
+            <td><%= order.employee.email %></td>
+          <% else %>
+            <td><%= order.employee.first_name + " " + order.employee.last_name %></td>
+          <% end %>
           <td><%= order.reward_snapshot.title %></td>
           <td><%= order.reward_snapshot.description %></td>
           <td><%= order.reward_snapshot.price %></td>

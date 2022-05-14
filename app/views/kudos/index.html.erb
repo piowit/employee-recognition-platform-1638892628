@@ -17,7 +17,16 @@
       <tr data-kudo-id="<%= kudo.id %>">
         <td><%= kudo.title %></td>
         <td><%= kudo.content %></td>
-        <td><%= kudo.giver.email %></td>
+        <% if kudo.giver.first_name.nil? || kudo.giver.last_name.nil? %>
+          <td><%= kudo.giver.email %></td>
+        <% else %>
+          <td><%= kudo.giver.first_name + " " + kudo.giver.last_name %></td>
+        <% end %>
+        <% if kudo.receiver.first_name.nil? || kudo.receiver.last_name.nil? %>
+          <td><%= kudo.receiver.email %></td>
+        <% else %>
+          <td><%= kudo.receiver.first_name + " " + kudo.receiver.last_name %></td>
+        <% end %>
         <td><%= kudo.receiver.email %></td>
         <td><%= kudo.company_value.title %></td>
         <% if policy(kudo).update? %>
