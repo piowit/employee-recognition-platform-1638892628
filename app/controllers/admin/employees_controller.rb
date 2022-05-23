@@ -22,8 +22,9 @@ module Admin
     end
 
     def destroy
+      @employee = Employee.find(params[:id])
       @employee.destroy
-      redirect_to admin_employees_path, notice: 'Kudo was successfully destroyed.'
+      redirect_to admin_employees_path, notice: 'Employee was successfully destroyed.'
     end
 
     def add_kudos_for_all
