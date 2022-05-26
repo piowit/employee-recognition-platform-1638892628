@@ -1,4 +1,5 @@
 <%- headers = ['creation_date',
+               'employee_full_name',
                'employee_email',
                'title',
                'description',
@@ -7,6 +8,7 @@
 <%=raw CSV.generate_line headers %>
 <%- @orders.each do |order| -%>
   <%=raw CSV.generate_line([order.created_at,
+                            order.employee.full_name,
                             order.employee.email, 
                             order.reward_snapshot.title, 
                             order.reward_snapshot.description, 

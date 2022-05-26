@@ -14,4 +14,12 @@ class Employee < ApplicationRecord
   def points
     received_kudos.count - rewards.sum(:price).to_i
   end
+
+  def full_name
+    if first_name && last_name
+      "#{first_name} #{last_name}"
+    else
+      email
+    end
+  end
 end

@@ -19,11 +19,7 @@
   <tbody>
     <% @employees.each do |employee| %>
       <tr data-user-email="<%= employee.email %>">
-        <% if employee.first_name.nil? || employee.last_name.nil? %>
-          <td><%= employee.email %></td>
-        <% else %>
-          <td><%= employee.first_name + " " + employee.last_name %></td>
-        <% end %>
+        <td><%= employee.full_name %></td>
         <td><%= employee.points %></td>
         <td><%= employee.number_of_available_kudos %></td>
         <td><%= link_to 'Edit', edit_admin_employee_path(employee), class: 'btn btn-outline-primary btn-sm' %></td>
