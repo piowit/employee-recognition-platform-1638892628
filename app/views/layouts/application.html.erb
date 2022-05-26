@@ -18,6 +18,9 @@
   <%= render 'pages/header' %>
     <div class="container">
       <br/>
+      <% if employee_signed_in? && (!current_employee.first_name || !current_employee.last_name) %>
+       <%= render 'pages/setup_name_notice' %>
+      <% end %>
       <% if notice %>
        <%= render 'pages/notice' %>
       <% end %>
