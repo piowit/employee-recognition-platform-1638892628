@@ -32,8 +32,9 @@ RSpec/ExampleLength:
 
 RSpec/MultipleExpectations:
   Exclude: 
-    - spec/system/* 
-    - spec/system/admin/* 
+    - spec/*
+    - spec/*/*
+    - spec/*/*/*
     
 RSpec/LetSetup:
   Exclude:
