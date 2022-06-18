@@ -35,3 +35,10 @@
 yarn-debug.log*
 .yarn-integrity
 .solargraph.yml
+.idea/dataSources.xml
+.idea/erp.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/sqldialects.xml
+.idea/vcs.xml
+.idea/.gitignore
