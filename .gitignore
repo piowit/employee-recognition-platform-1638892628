@@ -42,3 +42,5 @@ yarn-debug.log*
 .idea/sqldialects.xml
 .idea/vcs.xml
 .idea/.gitignore
+/coverage/.last_run.json
+/coverage/.resultset.json.lock
