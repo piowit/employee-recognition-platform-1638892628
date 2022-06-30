@@ -1,0 +1,52 @@
+<%= form_with(model: order_form, url: orders_path) do |form| %>
+  <% if order_form.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h3><%= pluralize(order_form.errors.count, "error") %> prohibited this order from being saved:</h3>
+
+      <ul>
+        <% order_form.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= form.label 'Delivery method:', class: 'form-label hidden' %>
+    <%= form.select(:delivery_method, Order.delivery_methods) %>
+  </div>
+
+  <div id="only_post" class="field">
+    <div class="field">
+      <%= form.label 'Addresses:', class: 'form-label' %>
+      <% select = employee.addresses.sort_by(&:last_used).reverse.collect { | addresses | [addresses.full_address, addresses.id] }%>
+      <% select << ['Add new address', nil] %>
+      <%= form.select(:address_id, options_for_select(select  , employee.addresses))%>
+    </div>
+
+
+    <div id="only_add_address">
+      <div class="field">
+        <%= form.label 'Street: ', class: 'form-label' %>
+        <%= form.text_field :street, class: 'form-control' %>
+      </div>
+        <div class="field">
+        <%= form.label 'Postcode: ', class: 'form-label' %>
+        <%= form.text_field :postcode, class: 'form-control' %>
+      </div>
+        <div class="field">
+        <%= form.label 'City: ', class: 'form-label' %>
+        <%= form.text_field :city, class: 'form-control' %>
+      </div>
+      
+      <%= form.hidden_field :reward, value: reward.id %>
+
+      <br/>
+
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-success' %>
+  </div>
+<% end %>

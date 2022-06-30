@@ -2,6 +2,7 @@
 
 class Order < ApplicationRecord
   serialize :reward_snapshot
+  serialize :address_snapshot
 
   belongs_to :employee
   belongs_to :reward
