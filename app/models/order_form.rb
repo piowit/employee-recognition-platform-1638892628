@@ -6,8 +6,9 @@ class OrderForm
   attr_accessor :reward, :delivery_method, :employee, :street, :postcode, :city, :address_id
 
   def save
+    r = Reward.find(reward)
     ActiveRecord::Base.transaction do
-      if delivery_method == 'post'
+      if r.delivery_method == 'Post'
         if address_id.present?
           a = Address.find(address_id)
           a.last_used = Time.current
@@ -16,7 +17,6 @@ class OrderForm
           a = Address.create!(employee: employee, street: street, city: city, postcode: postcode, last_used: Time.current)
         end
       end
-      r = Reward.find(reward)
       Order.create!(reward: r, reward_snapshot: r, address_snapshot: a, employee: employee)
     end
     true

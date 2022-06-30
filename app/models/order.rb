@@ -6,6 +6,4 @@ class Order < ApplicationRecord
 
   belongs_to :employee
   belongs_to :reward
-
-  enum delivery_method: { Online: 'online', Post: 'post' }
 end
