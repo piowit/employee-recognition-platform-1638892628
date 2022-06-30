@@ -21,7 +21,7 @@
           <%= form.label 'Addresses:', class: 'form-label' %>
           <% select = employee.addresses.sort_by(&:last_used).reverse.collect { | addresses | [addresses.full_address, addresses.id] }%>
           <% select << ['Add new address', nil] %>
-          <%= form.select(:address_id, options_for_select(select  , employee.addresses))%>
+          <%= form.select(:address_id, options_for_select(select, employee.addresses))%>
         </div>
 
 
@@ -48,6 +48,6 @@
 
       <%= form.hidden_field :reward, value: reward.id %>
   <div class="actions">
-    <%= form.submit class: 'btn btn-success' %>
+    <%= form.submit "Buy", class: 'btn btn-success' %>
   </div>
 <% end %>

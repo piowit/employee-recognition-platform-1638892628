@@ -21,6 +21,8 @@ RSpec.describe 'Order spec', type: :system do
     expect(page).to have_content 'Received Points: 1'
     expect(page).to have_content reward.title
     click_link 'Buy'
+    expect(page).to have_content reward.title
+    click_button 'Buy'
     expect(page).to have_content 'Reward bought'
 
     visit orders_path
