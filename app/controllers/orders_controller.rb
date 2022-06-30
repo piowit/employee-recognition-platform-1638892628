@@ -21,7 +21,9 @@ class OrdersController < ApplicationController
       if order_form.save
         redirect_to orders_path, notice: 'Reward bought'
       else
-        render 'new', locals: { order_form: order_form, reward: reward, employee: current_employee }
+        render 'new',
+               locals: { order_form: order_form, reward: reward, delivery_method: reward.delivery_method,
+                         employee: current_employee }
       end
     end
   end

@@ -11,6 +11,8 @@ class Reward < ApplicationRecord
   has_many :category_rewards, dependent: :destroy
   has_many :categories, through: :category_rewards
 
+  enum delivery_method: { Online: 'online', Post: 'post' }
+
   def self.import(file)
     ActiveRecord::Base.transaction do
       CSV.foreach(file.path, headers: true) do |row|

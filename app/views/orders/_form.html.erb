@@ -12,40 +12,41 @@
   <% end %>
   
   <div class="field">
-    <%= form.label 'Delivery method:', class: 'form-label hidden' %>
-    <%= form.select(:delivery_method, Order.delivery_methods) %>
+    Are you sure that you want to buy <%= reward.title %>?
   </div>
 
-  <div id="only_post" class="field">
-    <div class="field">
-      <%= form.label 'Addresses:', class: 'form-label' %>
-      <% select = employee.addresses.sort_by(&:last_used).reverse.collect { | addresses | [addresses.full_address, addresses.id] }%>
-      <% select << ['Add new address', nil] %>
-      <%= form.select(:address_id, options_for_select(select  , employee.addresses))%>
-    </div>
+    <% if reward.delivery_method == 'Post' %>
+      <div id="only_post" class="field">
+        <div class="field">
+          <%= form.label 'Addresses:', class: 'form-label' %>
+          <% select = employee.addresses.sort_by(&:last_used).reverse.collect { | addresses | [addresses.full_address, addresses.id] }%>
+          <% select << ['Add new address', nil] %>
+          <%= form.select(:address_id, options_for_select(select  , employee.addresses))%>
+        </div>
 
 
-    <div id="only_add_address">
-      <div class="field">
-        <%= form.label 'Street: ', class: 'form-label' %>
-        <%= form.text_field :street, class: 'form-control' %>
+        <div id="only_add_address">
+          <div class="field">
+            <%= form.label 'Street: ', class: 'form-label' %>
+            <%= form.text_field :street, class: 'form-control' %>
+          </div>
+            <div class="field">
+            <%= form.label 'Postcode: ', class: 'form-label' %>
+            <%= form.text_field :postcode, class: 'form-control' %>
+          </div>
+            <div class="field">
+            <%= form.label 'City: ', class: 'form-label' %>
+            <%= form.text_field :city, class: 'form-control' %>
+          </div>
+          
+
+          <br/>
+
+        </div>
       </div>
-        <div class="field">
-        <%= form.label 'Postcode: ', class: 'form-label' %>
-        <%= form.text_field :postcode, class: 'form-control' %>
-      </div>
-        <div class="field">
-        <%= form.label 'City: ', class: 'form-label' %>
-        <%= form.text_field :city, class: 'form-control' %>
-      </div>
-      
+    <% end %>
+
       <%= form.hidden_field :reward, value: reward.id %>
-
-      <br/>
-
-    </div>
-  </div>
-
   <div class="actions">
     <%= form.submit class: 'btn btn-success' %>
   </div>
