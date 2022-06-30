@@ -18,6 +18,7 @@
       <th>Slug</th>
       <th class="col-md-8">Description</th>
       <th>Price</th>
+      <th>Delivery Method</th>
       <th>Photo</th>
       <th></th>
     </tr>
@@ -30,6 +31,7 @@
         <td><%= reward.slug %></td>
         <td><%= reward.description %></td>
         <td><%= reward.price %></td>
+        <td><%= reward.delivery_method %></td>
         <th><% if reward.photo.attached?%> <%= image_tag reward.photo, height: '50px' %> <% end %></th>
         <td>
           <%= link_to 'Edit', edit_admin_reward_path(reward), class: 'btn btn-outline-primary btn-sm' %>
