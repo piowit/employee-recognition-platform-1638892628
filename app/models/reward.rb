@@ -8,6 +8,7 @@ class Reward < ApplicationRecord
   has_one_attached :photo
 
   has_many :orders, dependent: :nullify
+  has_many :online_codes, dependent: :destroy
   has_many :category_rewards, dependent: :destroy
   has_many :categories, through: :category_rewards
 

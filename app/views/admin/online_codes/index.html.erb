@@ -1,0 +1,30 @@
+<h1>Manage Online Codes</h1>
+
+<table class="table table-striped table-hover">
+  <thead class="table-secondary">
+    <tr>
+      <th>Code</th>
+      <th>Reward</th>
+      <th>Employee</th>
+      <th>Sent</th>
+      <th colspan="2">Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+   <% online_codes.each do |online_code| %>
+      <tr>
+        <td><%= online_code.code %></td>
+        <td><%= online_code.reward.title %></td>
+        <td><%= online_code.order.employee_name if online_code.order.present? %></td>
+        <td><%= online_code.sent? ? 'Yes' : 'No'%></td>
+        <td><%= link_to 'Edit', edit_admin_online_code_path(online_code), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Destroy', admin_online_code_path(online_code), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Add Online Code', new_admin_online_code_path, class: 'btn btn-success' %>
