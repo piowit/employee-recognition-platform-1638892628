@@ -1,0 +1,27 @@
+<%= form_with(model: [:admin, online_code ]) do |form| %>
+  <% if online_code.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(online_code.errors.count, "error") %> prohibited this online code from being saved:</h2>
+
+      <ul>
+        <% online_code.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<div class="mb-3">
+  <%= form.label :code %>
+  <%= form.text_field :code %>
+</div>
+
+<div class="field">
+  <%= form.label 'Reward: ' %>
+  <%= collection_select( :online_code, :reward_id, Reward.all, :id, :title, {}, {:class => 'form-select'}) %>
+</div>
+
+<div class="actions">
+  <%= form.submit %>
+</div>
+<% end %>

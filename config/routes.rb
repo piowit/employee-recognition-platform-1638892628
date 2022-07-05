@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'pages#dashboard'
     resources :kudos
+    resources :online_codes
     resources :company_values
     resources :rewards do
       collection { post :import }
