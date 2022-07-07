@@ -42,6 +42,30 @@ module Admin
       redirect_to admin_online_codes_path, notice: 'Online code was successfully destroyed.'
     end
 
+    def export
+      @online_codes = OnlineCode.all.order(:code)
+
+      response.headers['Content-Type'] = 'text/csv'
+      response.headers['Content-Disposition'] =
+        "attachment; filename=online_codes_#{Time.zone.now.strftime('%y%m%d_%H-%M-%S')}.csv"
+      render template: 'admin/online_codes/export', handlers: [:erb], formats: [:csv]
+    end
+
+    def import
+      if params[:file].nil?
+        redirect_to admin_online_codes_path, notice: 'No file selected.'
+      elsif File.extname(params[:file]) != '.csv'
+        redirect_to admin_online_codes_path, notice: 'File is not a ".csv"'
+      else
+        OnlineCode.import(params[:file])
+        redirect_to admin_online_codes_path, notice: 'Rewards imported.'
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      redirect_to admin_rewards_path, notice: "Problem with CSV file. \"#{e}\""
+    rescue CSV::MalformedCSVError => e
+      redirect_to admin_rewards_path, notice: "Problem with CSV file. \"#{e}\""
+    end
+
     private
 
     def online_code_params

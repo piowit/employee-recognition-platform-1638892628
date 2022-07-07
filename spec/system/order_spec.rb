@@ -4,11 +4,12 @@ require 'rails_helper'
 
 RSpec.describe 'Order spec', type: :system do
   let!(:employee) { create(:employee) }
-  let!(:reward) { create(:reward, price: 1) }
+  let!(:reward) { create(:reward, price: 1, available_items: 1) }
   let!(:company_value) { create(:company_value) }
+  let!(:online_code) { create(:online_code, reward: reward) }
 
   it 'tests order' do
-    # visit root_path
+    online_code
     create(:kudo, giver: employee, receiver: employee, company_value: company_value)
     login_as employee, scope: :employee
 

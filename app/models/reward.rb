@@ -12,7 +12,13 @@ class Reward < ApplicationRecord
   has_many :category_rewards, dependent: :destroy
   has_many :categories, through: :category_rewards
 
-  enum delivery_method: { Online: 'online', Post: 'post' }
+  enum delivery_method: { online: 'online', post: 'post' }
+
+  scope :in_stock, -> { where('available_items > 0').or(where('online_codes_count > 0')) }
+
+  def number_of_available_items
+    delivery_method == 'online' ? online_codes_count : available_items
+  end
 
   def self.import(file)
     ActiveRecord::Base.transaction do

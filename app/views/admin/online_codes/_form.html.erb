@@ -18,7 +18,7 @@
 
 <div class="field">
   <%= form.label 'Reward: ' %>
-  <%= collection_select( :online_code, :reward_id, Reward.all, :id, :title, {}, {:class => 'form-select'}) %>
+  <%= collection_select( :online_code, :reward_id, Reward.online, :id, :title, {}, {:class => 'form-select'}) %>
 </div>
 
 <div class="actions">

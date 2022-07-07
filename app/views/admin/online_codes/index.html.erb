@@ -1,5 +1,17 @@
 <h1>Manage Online Codes</h1>
 
+<%= link_to 'Download Online Codes as CSV', export_admin_online_codes_path, class: 'btn btn-outline-success btn-sm' %>
+
+<%= form_tag import_admin_online_codes_path, multipart: true, class: 'form-inline' do %>
+  <div class="form-group">
+    <%= file_field_tag :file %>
+  </div>
+  
+  <div class="form-group">
+    <%= submit_tag "Import Online Codes", class: 'btn btn-outline-success btn-sm' %>
+  </div>
+<% end %>
+
 <table class="table table-striped table-hover">
   <thead class="table-secondary">
     <tr>

@@ -3,8 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Reward categories', type: :system do
-  let!(:cat_rew1) { create(:category_reward) }
-  let!(:cat_rew2) { create(:category_reward) }
+  let(:reward1) { create(:reward, delivery_method: 'post', available_items: 1) }
+  let(:reward2) { create(:reward, delivery_method: 'post', available_items: 1) }
+  let!(:cat_rew1) { create(:category_reward, reward: reward1) }
+  let!(:cat_rew2) { create(:category_reward, reward: reward2) }
   let!(:employee) { create(:employee) }
 
   before do

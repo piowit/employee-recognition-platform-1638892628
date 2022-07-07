@@ -37,8 +37,10 @@ Kudo.create!(title: Faker::Food.dish, content: Faker::Food.description, giver_id
 Kudo.create!(title: Faker::Food.dish, content: Faker::Food.description, giver_id: employee6.id, receiver_id: employee1.id,
              company_value: cv2)
 
-15.times do |x|
-  Reward.where(title: Faker::Commerce.product_name).first_or_create!(description: Faker::GreekPhilosophers.quote, price: x + 1)
+5.times do |x|
+  Reward.where(title: t = Faker::Commerce.product_name).first_or_create!(slug: t.parameterize,
+                                                                         description: Faker::GreekPhilosophers.quote,
+                                                                         price: x + 1)
 end
 
 5.times do

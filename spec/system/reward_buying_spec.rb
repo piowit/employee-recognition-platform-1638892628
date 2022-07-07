@@ -5,9 +5,11 @@ require 'rails_helper'
 RSpec.describe 'Reward buying', type: :system do
   let!(:employee) { create(:employee) }
   let!(:reward) { create(:reward, price: 1) }
+  let!(:online_code) { create(:online_code, reward: reward) }
 
   context 'when we want to buy reward' do
     before do
+      online_code
       login_as employee, scope: :employee
       visit root_path
       click_link 'Rewards'
@@ -54,7 +56,7 @@ RSpec.describe 'Reward buying', type: :system do
     end
 
     it 'paginates rewards' do
-      create_list(:reward, 25)
+      create_list(:reward, 25, delivery_method: 'post', available_items: 1)
       click_link 'Rewards'
       within('#rewards_table') do
         expect(all('tr').count).to eq(11)

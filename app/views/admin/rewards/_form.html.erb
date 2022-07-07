@@ -23,8 +23,15 @@
 
 <div class="field">
   <%= form.label :price %>
-  <%= form.text_area :price %>
+  <%= form.number_field :price %>
 </div>
+
+  <% if @reward.delivery_method != 'online' %>
+  <div class="field">
+    <%= form.label :available_items %>
+    <%= form.number_field :available_items %>
+  </div>
+<% end %>
 
 <div class="field">
   <%= form.label :delivery_method %>
