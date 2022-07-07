@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :reward do
     sequence(:title) { |i| "Title#{format('%03d', i)}" }
+    sequence(:slug) { |i| "Title#{format('%03d', i)}".parameterize }
     sequence(:description) { |i| "Description#{format('%03d', i)}" }
     sequence(:price) { |i| i }
     available_items { 0 }
