@@ -16,9 +16,17 @@ RSpec.describe 'Reward categories', type: :system do
     click_link 'New Category'
     click_button 'Create Category'
     expect(page).to have_content 'Title can\'t be blank'
-    fill_in 'category[title]', with: category.title
+    fill_in 'category[title]', with: "test#{category.title}"
     click_button 'Create Category'
     expect(page).to have_content 'Category was successfully created.'
+    expect(page).to have_content "test#{category.title}"
+
+    # edit category
+    click_link 'Categories'
+    click_link 'Edit'
+    fill_in 'category[title]', with: category.title
+    click_button 'Update Category'
+    expect(page).not_to have_content "test#{category.title}"
     expect(page).to have_content category.title
 
     # add reward to category

@@ -8,6 +8,9 @@ class OrdersController < ApplicationController
   end
 
   def new
+    reward = Reward.find(params[:reward])
+    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < reward.price
+
     order_form = OrderForm.new
     render 'new', locals: { order_form: order_form, reward: reward, employee: current_employee }
   end
@@ -37,9 +40,5 @@ class OrdersController < ApplicationController
     ofp = params.require(:order_form).permit(:reward, :delivery_method, :street, :postcode, :city, :address_id)
     ofp[:employee] = current_employee
     ofp
-  end
-
-  def reward
-    Reward.find(params[:reward])
   end
 end

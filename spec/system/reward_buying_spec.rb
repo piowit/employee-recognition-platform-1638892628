@@ -31,8 +31,6 @@ RSpec.describe 'Reward buying', type: :system do
 
     it 'try to buy reward, while not having funds' do
       click_link 'Buy'
-      expect(page).to have_content reward.title
-      click_button 'Buy'
       expect(page).to have_content 'You have insufficient funds'
     end
 
