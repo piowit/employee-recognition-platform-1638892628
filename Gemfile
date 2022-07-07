@@ -7,6 +7,7 @@ ruby '2.7.6'
 
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'counter_culture', '~> 2.0'
 gem 'devise', '~> 4.8'
 gem 'faker', '~> 1.6', '>= 1.6.3'
 gem 'file_validators'
