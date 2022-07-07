@@ -5,6 +5,7 @@ FactoryBot.define do
     sequence(:title) { |i| "Title#{format('%03d', i)}" }
     sequence(:description) { |i| "Description#{format('%03d', i)}" }
     sequence(:price) { |i| i }
-    delivery_method { 'Online' }
+    available_items { 0 }
+    delivery_method { 'online' }
   end
 end

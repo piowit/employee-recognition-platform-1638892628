@@ -14,18 +14,21 @@ class OrdersController < ApplicationController
 
   def create
     reward = Reward.find(order_form_params[:reward])
-    if current_employee.points < reward.price
-      redirect_to rewards_path, notice: 'You have insufficient funds'
-    else
-      order_form = OrderForm.new(order_form_params)
-      if order_form.save
-        redirect_to orders_path, notice: 'Reward bought'
-      else
-        render 'new',
-               locals: { order_form: order_form, reward: reward, delivery_method: reward.delivery_method,
-                         employee: current_employee }
+    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < reward.price
+
+    order_form = OrderForm.new(order_form_params)
+
+    ActiveRecord::Base.transaction do
+      order_form.save
+      if order_form.order.reward_snapshot.delivery_method == 'online'
+        DeliveryOrderMailer.with(order: order_form.order).send_delivery_confirmation_email.deliver_now
+        order_form.order.update!(delivered: true)
       end
+      redirect_to orders_path, notice: 'Reward bought'
     end
+  rescue ActiveRecord::RecordInvalid => e
+    render 'new', locals: { order_form: order_form, reward: reward, delivery_method: reward.delivery_method,
+                            employee: current_employee }, notice: e
   end
 
   private

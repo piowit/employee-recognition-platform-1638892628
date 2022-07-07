@@ -5,11 +5,28 @@ class OnlineCode < ApplicationRecord
   validates :code, uniqueness: true
 
   belongs_to :reward
+  counter_culture :reward, column_name: proc { |model| model.sent? ? nil : 'online_codes_count' }
+
   belongs_to :order, optional: true
 
-  def sent?
-    return true if order.present?
+  scope :available, -> { where(order_id: nil) }
 
-    false
+  def sent?
+    order.present?
+  end
+
+  def self.import(file)
+    ActiveRecord::Base.transaction do
+      CSV.foreach(file.path, headers: true) do |row|
+        online_code_hash = row.to_hash
+        next if online_code_hash['slug'].nil?
+        next if OnlineCode.where(code: online_code_hash['code']).present?
+        next if Reward.where(slug: online_code_hash['slug']).nil?
+
+        reward = Reward.where(slug: online_code_hash['slug']).first
+        online_code = OnlineCode.new(code: online_code_hash['code'], reward_id: reward.id)
+        online_code.save!
+      end
+    end
   end
 end

@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'pages#dashboard'
     resources :kudos
-    resources :online_codes
+    resources :online_codes, only: %i[index new create destroy edit] do
+      collection { post :import }
+      collection { get :export }
+    end
     resources :company_values
     resources :rewards do
       collection { post :import }
