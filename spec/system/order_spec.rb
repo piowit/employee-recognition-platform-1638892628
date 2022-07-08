@@ -48,10 +48,10 @@ RSpec.describe 'Order spec', type: :system do
     reward_post_row = page.find("tr[data-reward-id=\"#{reward_post.id}\"]")
     reward_post_row.click_link 'Buy'
     expect(page).to have_content reward_post.title
-    select 'Add new address', from: 'order_form[address_id]'
-    fill_in 'order_form[street]', with: 'Odolanska 56'
-    fill_in 'order_form[postcode]', with: '02-562'
-    fill_in 'order_form[city]', with: 'Warszawa'
+    select 'Add new address', from: 'create_order_service[address_id]'
+    fill_in 'create_order_service[street]', with: 'Odolanska 56'
+    fill_in 'create_order_service[postcode]', with: '02-562'
+    fill_in 'create_order_service[city]', with: 'Warszawa'
     click_button 'Buy'
     expect(page).to have_content 'Reward bought'
 
@@ -74,7 +74,7 @@ RSpec.describe 'Order spec', type: :system do
     reward_post_row = page.find("tr[data-reward-id=\"#{reward_post.id}\"]")
     reward_post_row.click_link 'Buy'
     expect(page).to have_content reward_post.title
-    select address.full_address, from: 'order_form[address_id]'
+    select address.full_address, from: 'create_order_service[address_id]'
     click_button 'Buy'
     expect(page).to have_content 'Reward bought'
 
