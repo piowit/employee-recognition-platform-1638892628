@@ -8,37 +8,28 @@ class OrdersController < ApplicationController
   end
 
   def new
-    reward = Reward.find(params[:reward])
-    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < reward.price
+    @reward = Reward.find(params[:reward])
+    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < @reward.price
 
-    order_form = OrderForm.new
-    render 'new', locals: { order_form: order_form, reward: reward, employee: current_employee }
+    @create_order_service = CreateOrderService.new
+    render 'new', locals: { order: @create_order_service, reward: @reward, employee: current_employee }
   end
 
   def create
-    reward = Reward.find(order_form_params[:reward])
-    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < reward.price
-
-    order_form = OrderForm.new(order_form_params)
-
-    ActiveRecord::Base.transaction do
-      order_form.save
-      if order_form.order.reward_snapshot.delivery_method == 'online'
-        DeliveryOrderMailer.with(order: order_form.order).send_delivery_confirmation_email.deliver_now
-        order_form.order.update!(delivered: true)
-      end
+    @create_order_service = CreateOrderService.new(order_params)
+    if @create_order_service.call
       redirect_to orders_path, notice: 'Reward bought'
+    else
+      render 'new', locals: { order: @create_order_service, reward: @create_order_service.reward, employee: current_employee },
+                    notice: @create_order_service.errors
     end
-  rescue ActiveRecord::RecordInvalid => e
-    render 'new', locals: { order_form: order_form, reward: reward, delivery_method: reward.delivery_method,
-                            employee: current_employee }, notice: e
   end
 
   private
 
-  def order_form_params
-    ofp = params.require(:order_form).permit(:reward, :delivery_method, :street, :postcode, :city, :address_id)
-    ofp[:employee] = current_employee
-    ofp
+  def order_params
+    cos = params.require(:create_order_service).permit(:reward, :delivery_method, :street, :postcode, :city, :address_id)
+    cos[:employee] = current_employee
+    cos
   end
 end

@@ -1,10 +1,10 @@
-<%= form_with(model: order_form, url: orders_path) do |form| %>
-  <% if order_form.errors.any? %>
+<%= form_with(model: order, url: orders_path) do |form| %>
+  <% if order.errors.any? %>
     <div id="error_explanation" class="alert alert-danger" role="alert">
-      <h3><%= pluralize(order_form.errors.count, "error") %> prohibited this order from being saved:</h3>
+      <h3><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h3>
 
       <ul>
-        <% order_form.errors.each do |error| %>
+        <% order.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
