@@ -3,23 +3,22 @@
 class CreateOrderService
   include ActiveModel::Validations
 
-  attr_reader :errors, :reward, :address_id, :street, :city, :postcode
+  attr_reader :errors
 
-  def initialize(params = nil)
-    # params = [:reward, :delivery_method, :street, :postcode, :city, :address_id]
-    if params.present?
-      @reward = Reward.find(params[:reward])
-      @employee = params[:employee]
-      @street = params[:street]
-      @postcode = params[:postcode]
-      @city = params[:city]
-      @address = params[:address_id].present? ? Address.find(params[:address_id]) : nil
-    end
+  def initialize(params)
+    @params = params
+    @reward = Reward.find(params[:reward_id])
+    @employee = params[:employee]
+    @street = params.dig(:address, :street)
+    @postcode = params.dig(:address, :postcode)
+    @city = params.dig(:address, :city)
+    @address = Address.new(city: @city, postcode: @postcode, street: @street, last_used: Time.current, employee: @employee)
     @errors = ActiveModel::Errors.new(self)
   end
 
   def call
     ActiveRecord::Base.transaction do
+      check_items_stock
       check_funds
       take_or_create_address if @reward.delivery_method == 'post'
       create_order
@@ -36,18 +35,24 @@ class CreateOrderService
 
   private
 
+  def check_items_stock
+    return true if @reward.delivery_method == 'post' && @reward.available_items.positive?
+    return true if @reward.delivery_method == 'online' && @reward.online_codes_count.positive?
+
+    raise StandardError, 'Not enough items in stock'
+  end
+
   def check_funds
     raise StandardError, 'You have insufficient funds' if @employee.points < @reward.price
   end
 
   def take_or_create_address
-    return @address.update!(last_used: Time.current) if @address.present?
-
-    @address = Address.create!(employee: @employee, street: @street, city: @city, postcode: @postcode, last_used: Time.current)
+    @address.save!
   end
 
   def create_order
-    @order = Order.create!(reward: @reward, reward_snapshot: @reward, address_snapshot: @address, employee: @employee)
+    @order = Order.new(reward: @reward, reward_snapshot: @reward, address_snapshot: @address, employee: @employee)
+    @order.valid? ? @order.save! : @errors.merge!(@order)
   end
 
   def decrease_item_stock

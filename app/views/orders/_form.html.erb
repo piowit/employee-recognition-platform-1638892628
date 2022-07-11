@@ -1,10 +1,10 @@
-<%= form_with(model: order, url: orders_path) do |form| %>
-  <% if order.errors.any? %>
+<%= form_for @order, url: orders_path do |form| %>
+  <% if @create_order_service&.errors&.any? %>
     <div id="error_explanation" class="alert alert-danger" role="alert">
-      <h3><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h3>
+      <h3><%= pluralize(@create_order_service.errors.count, "error") %> prohibited this order from being saved:</h3>
 
       <ul>
-        <% order.errors.each do |error| %>
+        <% @create_order_service.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -15,38 +15,24 @@
     Are you sure that you want to buy <%= reward.title %>?
   </div>
 
-    <% if reward.delivery_method == 'post' %>
-      <div id="only_post" class="field">
-        <div class="field">
-          <%= form.label 'Addresses:', class: 'form-label' %>
-          <% select = employee.addresses.sort_by(&:last_used).reverse.collect { | addresses | [addresses.full_address, addresses.id] }%>
-          <% select << ['Add new address', nil] %>
-          <%= form.select(:address_id, options_for_select(select, employee.addresses))%>
-        </div>
-
-
-        <div id="only_add_address">
-          <div class="field">
-            <%= form.label 'Street: ', class: 'form-label' %>
-            <%= form.text_field :street, class: 'form-control' %>
-          </div>
-            <div class="field">
-            <%= form.label 'Postcode: ', class: 'form-label' %>
-            <%= form.text_field :postcode, class: 'form-control' %>
-          </div>
-            <div class="field">
-            <%= form.label 'City: ', class: 'form-label' %>
-            <%= form.text_field :city, class: 'form-control' %>
-          </div>
-          
-
-          <br/>
-
-        </div>
-      </div>
+    <% if @reward.delivery_method == 'post' %>
+      <%= form.fields_for @address do |builder_address| %>
+              <div class="field">
+                <%= builder_address.label 'Street: ', class: 'form-label' %>
+                <%= builder_address.text_field :street, class: 'form-control' %>
+              </div>
+                <div class="field">
+                <%= builder_address.label 'Postcode: ', class: 'form-label' %>
+                <%= builder_address.text_field :postcode, class: 'form-control' %>
+              </div>
+                <div class="field">
+                <%= builder_address.label 'City: ', class: 'form-label' %>
+                <%= builder_address.text_field :city, class: 'form-control' %>
+              </div>
+      <% end %>
     <% end %>
 
-      <%= form.hidden_field :reward, value: reward.id %>
+      <%= form.hidden_field :reward_id, value: @reward.id %>
   <div class="actions">
     <%= form.submit "Buy", class: 'btn btn-success' %>
   </div>
