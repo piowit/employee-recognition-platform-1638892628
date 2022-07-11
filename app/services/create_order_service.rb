@@ -6,13 +6,10 @@ class CreateOrderService
   attr_reader :errors
 
   def initialize(params)
-    @params = params
     @reward = Reward.find(params[:reward_id])
     @employee = params[:employee]
-    @street = params.dig(:address, :street)
-    @postcode = params.dig(:address, :postcode)
-    @city = params.dig(:address, :city)
-    @address = Address.new(city: @city, postcode: @postcode, street: @street, last_used: Time.current, employee: @employee)
+    @address = Address.new(city: params.dig(:address, :city), postcode: params.dig(:address, :postcode),
+                           street: params.dig(:address, :street), last_used: Time.current, employee: @employee)
     @errors = ActiveModel::Errors.new(self)
   end
 
@@ -20,7 +17,7 @@ class CreateOrderService
     ActiveRecord::Base.transaction do
       check_items_stock
       check_funds
-      take_or_create_address if @reward.delivery_method == 'post'
+      save_address if @reward.delivery_method == 'post'
       create_order
       decrease_item_stock if @reward.delivery_method == 'post'
       assign_online_code if @reward.delivery_method == 'online'
@@ -46,7 +43,7 @@ class CreateOrderService
     raise StandardError, 'You have insufficient funds' if @employee.points < @reward.price
   end
 
-  def take_or_create_address
+  def save_address
     @address.save!
   end
 

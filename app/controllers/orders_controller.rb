@@ -29,15 +29,6 @@ class OrdersController < ApplicationController
     else
       render 'new', locals: { order: @order, reward: @order.reward, employee: current_employee }
     end
-    # @order.reward_snapshot = Reward.find(order_params[:reward_id])
-    # @order.address_snapshot = Address.new(order_params.dig(:employee_attributes, :address_attributes))
-    # @reward.update!(available_items: @reward.available_items - 1)
-    # if @order.save
-    #   redirect_to orders_path, notice: 'Reward bought'
-    # else
-    #   render 'new', locals: { order: @order, reward: @order.reward, employee: current_employee },
-    #                 notice: @order.errors
-    # end
   end
 
   private
