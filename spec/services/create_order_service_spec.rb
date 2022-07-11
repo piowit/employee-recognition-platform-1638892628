@@ -100,7 +100,6 @@ RSpec.describe CreateOrderService do
         create_order_service = described_class.new(params)
         expect { create_order_service.call }.to change { ActionMailer::Base.deliveries.count }.by(1)
         expect(Order.last.delivered).to eq(true)
-        # binding_pry
         expect(ActionMailer::Base.deliveries.last.body.to_s).to include OnlineCode.first.code
       end
     end
