@@ -28,7 +28,7 @@
       <tr>
         <td><%= online_code.code %></td>
         <td><%= online_code.reward.title %></td>
-        <td><%= online_code.order.employee_name if online_code.order.present? %></td>
+        <td><%= online_code.order.employee.full_name if online_code.order.present? %></td>
         <td><%= online_code.sent? ? 'Yes' : 'No'%></td>
         <td><%= link_to 'Edit', edit_admin_online_code_path(online_code), class: 'btn btn-outline-primary btn-sm' %></td>
         <td><%= link_to 'Destroy', admin_online_code_path(online_code), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>

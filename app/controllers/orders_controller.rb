@@ -18,24 +18,20 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @reward = Reward.find(order_params[:reward_id])
     @address = Address.new(order_params[:address])
-    @order = Order.new(reward: @reward, reward_snapshot: @reward, address_snapshot: @address, employee: @employee)
-    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < @reward.price
+    @create_order_service = CreateOrderService.new(order_params, current_employee)
 
-    @create_order_service = CreateOrderService.new(order_params)
     if @create_order_service.call
       redirect_to orders_path, notice: 'Reward bought'
     else
-      render 'new', locals: { order: @order, reward: @order.reward, employee: current_employee }
+      render 'new',
+             locals: { order: @create_order_service.order, reward: @create_order_service.reward, employee: current_employee }
     end
   end
 
   private
 
   def order_params
-    cos = params.require(:order).permit(:reward_id, address: %i[street postcode city])
-    cos[:employee] = current_employee
-    cos
+    params.require(:order).permit(:reward_id, address: %i[street postcode city])
   end
 end

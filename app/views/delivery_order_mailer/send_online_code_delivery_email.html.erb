@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1>Your product has been delivered</h1>
-    <p>Thanks for purchasing! Your following item has been delivered:
-    <br />- <%= @order.reward_snapshot.title %> </p>
+    <p>Thanks for purchasing! <%= @order.reward_snapshot.title %> </p>
+    <p>Your code: <%= @online_code %> </p>
   </body>
 </html>

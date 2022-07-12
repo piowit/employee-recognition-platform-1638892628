@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class OnlineCode < ApplicationRecord
-  validates :code, :reward, presence: true
-  validates :code, uniqueness: true
-
   belongs_to :reward
-  counter_culture :reward, column_name: proc { |model| model.sent? ? nil : 'online_codes_count' }
-
   belongs_to :order, optional: true
+
+  validates :code, :reward, presence: true
+  validates :code, uniqueness: { scope: :reward_id }
+
+  counter_culture :reward, column_name: proc { |model| model.sent? ? nil : 'online_codes_count' }
 
   scope :available, -> { where(order_id: nil) }
 
