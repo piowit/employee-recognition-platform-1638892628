@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class CreateOrderService
-  # include ActiveModel::Validations
-
   attr_reader :errors, :order, :reward, :address
 
   def initialize(params, employee)
@@ -14,23 +12,25 @@ class CreateOrderService
     @city = params.dig(:address, :city)
     @postcode = params.dig(:address, :postcode)
 
-    @errors = ActiveModel::Errors.new(self)
+    # @errors = ActiveModel::Errors.new(self)
+    @errors = []
   end
 
   def call
+    return false unless check_items_stock
+    return false unless check_funds
+
     ActiveRecord::Base.transaction do
-      check_items_stock
-      check_funds
       update_address if @reward.delivery_method == 'post'
       create_order
       decrease_item_stock if @reward.delivery_method == 'post'
       assign_online_code if @reward.delivery_method == 'online'
-      deliver_email
     end
+    deliver_email
 
     true
-  rescue ActiveRecord::StatementInvalid, ActiveRecord::RecordInvalid, StandardError => e
-    @errors.add(:base, e.message)
+  rescue ActiveRecord::StatementInvalid, ActiveRecord::RecordInvalid => e
+    @errors << e.message
     false
   end
 
@@ -40,11 +40,15 @@ class CreateOrderService
     return true if @reward.delivery_method == 'post' && @reward.available_items.positive?
     return true if @reward.delivery_method == 'online' && @reward.online_codes_count.positive?
 
-    raise StandardError, 'Not enough items in stock'
+    @errors << 'Not enough items in stock'
+    false
   end
 
   def check_funds
-    raise StandardError, 'You have insufficient funds' if @employee.points < @reward.price
+    return true if @employee.points >= @reward.price
+
+    @errors << 'You have insufficient funds'
+    false
   end
 
   def update_address

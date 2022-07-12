@@ -56,21 +56,21 @@ RSpec.describe CreateOrderService do
         params = { address: attributes_for(:address, street: nil), reward_id: reward_post.id }
         create_order_service = described_class.new(params, employee)
         expect(create_order_service.call).to be false
-        expect(create_order_service.errors.full_messages.to_s).to include "Street can't be blank"
+        expect(create_order_service.errors.to_s).to include "Street can't be blank"
       end
 
       it 'is invalid without postcode' do
         params = { address: attributes_for(:address, postcode: nil), reward_id: reward_post.id }
         create_order_service = described_class.new(params, employee)
         expect(create_order_service.call).to be false
-        expect(create_order_service.errors.full_messages.to_s).to include "Postcode can't be blank"
+        expect(create_order_service.errors.to_s).to include "Postcode can't be blank"
       end
 
       it 'is invalid without city' do
         params = { address: attributes_for(:address, city: nil), reward_id: reward_post.id }
         create_order_service = described_class.new(params, employee)
         expect(create_order_service.call).to be false
-        expect(create_order_service.errors.full_messages.to_s).to include "City can't be blank"
+        expect(create_order_service.errors.to_s).to include "City can't be blank"
       end
     end
 
@@ -79,7 +79,7 @@ RSpec.describe CreateOrderService do
       params = { address: attributes_for(:address), reward_id: reward_post_price.id }
       create_order_service = described_class.new(params, employee)
       expect(create_order_service.call).to be false
-      expect(create_order_service.errors.full_messages.to_s).to include 'You have insufficient funds'
+      expect(create_order_service.errors.to_s).to include 'You have insufficient funds'
     end
 
     it 'is invalid when not enough items in stock' do
@@ -87,7 +87,7 @@ RSpec.describe CreateOrderService do
       params = { address: attributes_for(:address), reward_id: reward_post_stock.id }
       create_order_service = described_class.new(params, employee)
       expect(create_order_service.call).to be false
-      expect(create_order_service.errors.full_messages.to_s).to include 'Not enough items in stock'
+      expect(create_order_service.errors.to_s).to include 'Not enough items in stock'
     end
   end
 
@@ -142,7 +142,7 @@ RSpec.describe CreateOrderService do
       params = { address: attributes_for(:address), reward_id: reward_online_price.id }
       create_order_service = described_class.new(params, employee)
       expect(create_order_service.call).to be false
-      expect(create_order_service.errors.full_messages.to_s).to include 'You have insufficient funds'
+      expect(create_order_service.errors.to_s).to include 'You have insufficient funds'
     end
   end
 end

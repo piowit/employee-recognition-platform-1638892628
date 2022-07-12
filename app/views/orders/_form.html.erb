@@ -1,15 +1,4 @@
 <%= form_for @order, url: orders_path do |form| %>
-  <% if @create_order_service&.errors&.any? %>
-    <div id="error_explanation" class="alert alert-danger" role="alert">
-      <h3><%= pluralize(@create_order_service.errors.count, "error") %> prohibited this order from being saved:</h3>
-
-      <ul>
-        <% @create_order_service.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   
   <div class="field">
     Are you sure that you want to buy <%= reward.title %>?
