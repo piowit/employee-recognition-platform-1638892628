@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 class CreateOrderService
-  include ActiveModel::Validations
+  # include ActiveModel::Validations
 
-  attr_reader :errors
+  attr_reader :errors, :order, :reward, :address
 
-  def initialize(params)
+  def initialize(params, employee)
     @reward = Reward.find(params[:reward_id])
-    @employee = params[:employee]
+    @employee = employee
 
     @address = @employee.address || Address.new(employee: @employee)
     @street = params.dig(:address, :street)
     @city = params.dig(:address, :city)
     @postcode = params.dig(:address, :postcode)
-    
+
     @errors = ActiveModel::Errors.new(self)
   end
 
@@ -21,11 +21,11 @@ class CreateOrderService
     ActiveRecord::Base.transaction do
       check_items_stock
       check_funds
-      save_address if @reward.delivery_method == 'post'
+      update_address if @reward.delivery_method == 'post'
       create_order
       decrease_item_stock if @reward.delivery_method == 'post'
       assign_online_code if @reward.delivery_method == 'online'
-      deliver_online_code if @reward.delivery_method == 'online'
+      deliver_email
     end
 
     true
@@ -47,7 +47,7 @@ class CreateOrderService
     raise StandardError, 'You have insufficient funds' if @employee.points < @reward.price
   end
 
-  def save_address
+  def update_address
     @address.update!(city: @city, postcode: @postcode, street: @street, last_used: Time.current)
   end
 
@@ -65,8 +65,12 @@ class CreateOrderService
     @online_code.update!(order: @order)
   end
 
-  def deliver_online_code
-    @order.update!(delivered: true)
-    DeliveryOrderMailer.with(order: @order).send_delivery_confirmation_email.deliver_now
+  def deliver_email
+    if @reward.delivery_method == 'post'
+      DeliveryOrderMailer.with(order: @order).send_delivery_confirmation_email.deliver
+    else
+      DeliveryOrderMailer.with(order: @order, code: @online_code.code).send_online_code_delivery_email.deliver
+    end
+    @order.update!(delivered: true) if @order.reward_snapshot.delivery_method == 'online'
   end
 end

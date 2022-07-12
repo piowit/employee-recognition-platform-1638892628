@@ -15,7 +15,7 @@ RSpec.describe OnlineCode, type: :model do
   end
 
   it 'is not valid w ith not unique code' do
-    not_unique_code = build(:online_code, code: online_code.code)
+    not_unique_code = build(:online_code, code: online_code.code, reward_id: online_code.reward_id)
     expect(not_unique_code).not_to be_valid
   end
 
