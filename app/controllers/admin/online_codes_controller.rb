@@ -52,16 +52,13 @@ module Admin
     end
 
     def import
-      if params[:file].nil?
-        redirect_to admin_online_codes_path, notice: 'No file selected.'
-      elsif File.extname(params[:file]) != '.csv'
-        redirect_to admin_online_codes_path, notice: 'File is not a ".csv"'
-      else
-        OnlineCode.import(params[:file])
+      import_service = ImportOnlineCodesCsvService.new(params)
+
+      if import_service.call
         redirect_to admin_online_codes_path, notice: 'Rewards imported.'
+      else
+        redirect_to admin_online_codes_path, notice: import_service.errors.join(', ')
       end
-    rescue ActiveRecord::RecordInvalid, CSV::MalformedCSVError => e
-      redirect_to admin_rewards_path, notice: "Problem with CSV file. \"#{e}\""
     end
 
     private
