@@ -60,9 +60,7 @@ module Admin
         OnlineCode.import(params[:file])
         redirect_to admin_online_codes_path, notice: 'Rewards imported.'
       end
-    rescue ActiveRecord::RecordInvalid => e
-      redirect_to admin_rewards_path, notice: "Problem with CSV file. \"#{e}\""
-    rescue CSV::MalformedCSVError => e
+    rescue ActiveRecord::RecordInvalid, CSV::MalformedCSVError => e
       redirect_to admin_rewards_path, notice: "Problem with CSV file. \"#{e}\""
     end
 

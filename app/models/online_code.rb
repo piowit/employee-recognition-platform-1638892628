@@ -5,7 +5,7 @@ class OnlineCode < ApplicationRecord
   belongs_to :order, optional: true
 
   validates :code, :reward, presence: true
-  validates :code, uniqueness: { scope: :reward_id }
+  validates :code, uniqueness: true
 
   counter_culture :reward, column_name: proc { |model| model.sent? ? nil : 'online_codes_count' }
 
@@ -21,7 +21,7 @@ class OnlineCode < ApplicationRecord
         online_code_hash = row.to_hash
         next if online_code_hash['slug'].nil?
         next if OnlineCode.where(code: online_code_hash['code']).present?
-        next if Reward.where(slug: online_code_hash['slug']).nil?
+        next if Reward.where(slug: online_code_hash['slug']).blank?
 
         reward = Reward.where(slug: online_code_hash['slug']).first
         online_code = OnlineCode.new(code: online_code_hash['code'], reward_id: reward.id)

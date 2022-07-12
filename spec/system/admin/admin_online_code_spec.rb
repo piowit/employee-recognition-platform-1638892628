@@ -64,4 +64,16 @@ RSpec.describe 'Online Code spec', type: :system do
     expect(csv).to have_content reward_online.slug
     expect(csv).to have_content online_code.code
   end
+
+  it 'imports a csv file' do
+    login_as admin, scope: :admin_user
+    create(:reward, title: 'test', slug: 'test')
+    visit admin_online_codes_path
+    attach_file 'file', 'spec/fixtures/online_codes.csv'
+    click_button 'Import Online Codes'
+    visit admin_online_codes_path
+    expect(page).to have_content '123-123'
+    expect(page).to have_content '134-134'
+    expect(page).to have_content '135-135'
+  end
 end
