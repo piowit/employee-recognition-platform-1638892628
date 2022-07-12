@@ -8,8 +8,12 @@ class CreateOrderService
   def initialize(params)
     @reward = Reward.find(params[:reward_id])
     @employee = params[:employee]
-    @address = Address.new(city: params.dig(:address, :city), postcode: params.dig(:address, :postcode),
-                           street: params.dig(:address, :street), last_used: Time.current, employee: @employee)
+
+    @address = @employee.address || Address.new(employee: @employee)
+    @street = params.dig(:address, :street)
+    @city = params.dig(:address, :city)
+    @postcode = params.dig(:address, :postcode)
+    
     @errors = ActiveModel::Errors.new(self)
   end
 
@@ -44,7 +48,7 @@ class CreateOrderService
   end
 
   def save_address
-    @address.save!
+    @address.update!(city: @city, postcode: @postcode, street: @street, last_used: Time.current)
   end
 
   def create_order
