@@ -12,7 +12,6 @@ class CreateOrderService
     @city = params.dig(:address, :city)
     @postcode = params.dig(:address, :postcode)
 
-    # @errors = ActiveModel::Errors.new(self)
     @errors = []
   end
 
