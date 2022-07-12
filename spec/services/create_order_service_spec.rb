@@ -19,14 +19,29 @@ RSpec.describe CreateOrderService do
         expect(create_order_service.call).to be true
       end
 
-      it 'adds new order to db' do
+      it 'adds new order to db and new address' do
         params = { address: attributes_for(:address), employee: employee, reward_id: reward_post.id }
         orders_count_before = Order.all.count
+        address_count_before = Address.all.count
 
         create_order_service = described_class.new(params)
         create_order_service.call
 
         expect(Order.all.count).to eq(orders_count_before + 1)
+        expect(Address.all.count).to eq(address_count_before + 1)
+      end
+
+      it 'adds new order to db and changes existing address' do
+        create(:address, employee: employee)
+        params = { address: attributes_for(:address), employee: employee, reward_id: reward_post.id }
+        orders_count_before = Order.all.count
+        address_count_before = Address.all.count
+
+        create_order_service = described_class.new(params)
+        create_order_service.call
+
+        expect(Order.all.count).to eq(orders_count_before + 1)
+        expect(Address.all.count).to eq(address_count_before)
       end
     end
 
