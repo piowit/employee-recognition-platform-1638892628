@@ -69,6 +69,13 @@ RSpec.describe 'Online Code spec', type: :system do
     login_as admin, scope: :admin_user
     create(:reward, title: 'test', slug: 'test')
     visit admin_online_codes_path
+    click_button 'Import Online Codes'
+    expect(page).to have_content 'No file selected.'
+
+    attach_file 'file', 'spec/factories/online_codes.rb'
+    click_button 'Import Online Codes'
+    expect(page).to have_content 'File is not a ".csv"'
+
     attach_file 'file', 'spec/fixtures/online_codes.csv'
     click_button 'Import Online Codes'
     visit admin_online_codes_path
