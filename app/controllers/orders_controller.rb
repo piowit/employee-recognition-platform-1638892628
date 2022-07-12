@@ -25,7 +25,8 @@ class OrdersController < ApplicationController
       redirect_to orders_path, notice: 'Reward bought'
     else
       render 'new',
-             locals: { order: @create_order_service.order, reward: @create_order_service.reward, employee: current_employee }
+             locals: { order: @create_order_service.order, reward: @create_order_service.reward, employee: current_employee },
+             notice: create_order_service.errors.join(', ')
     end
   end
 
