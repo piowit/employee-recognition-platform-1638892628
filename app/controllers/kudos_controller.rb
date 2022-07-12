@@ -5,15 +5,12 @@ class KudosController < ApplicationController
   before_action :authenticate_employee!
   before_action :check_kudo_giver, only: %i[edit update destroy]
 
-  # GET /kudos
   def index
     @kudos = Kudo.includes(:company_value, :giver, :receiver)
   end
 
-  # GET /kudos/1
   def show; end
 
-  # GET /kudos/new
   def new
     if current_employee.number_of_available_kudos < 1
       redirect_to kudos_url, notice: 'You cannot give kudo! Not enough available kudos!'
@@ -22,12 +19,10 @@ class KudosController < ApplicationController
     end
   end
 
-  # GET /kudos/1/edit
   def edit
     authorize @kudo
   end
 
-  # POST /kudos
   def create
     if current_employee.number_of_available_kudos < 1
       redirect_to kudos_path, notice: 'Kudo Not Added! Not enough available kudos.'
@@ -47,7 +42,6 @@ class KudosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /kudos/1
   def update
     authorize @kudo
     if @kudo.update(kudo_params)
@@ -57,7 +51,6 @@ class KudosController < ApplicationController
     end
   end
 
-  # DELETE /kudos/1
   def destroy
     authorize @kudo
     @kudo.destroy
@@ -70,12 +63,10 @@ class KudosController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_kudo
     @kudo = Kudo.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def kudo_params
     params.require(:kudo).permit(:title, :content, :giver_id, :receiver_id, :company_value_id)
   end
