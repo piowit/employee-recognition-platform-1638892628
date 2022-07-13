@@ -21,27 +21,21 @@ RSpec.describe CreateOrderService do
 
       it 'adds new order to db and new address' do
         params = { address: attributes_for(:address), reward_id: reward_post.id }
-        orders_count_before = Order.all.count
-        address_count_before = Address.all.count
-
         create_order_service = described_class.new(params, employee)
-        create_order_service.call
-
-        expect(Order.all.count).to eq(orders_count_before + 1)
-        expect(Address.all.count).to eq(address_count_before + 1)
+        expect { create_order_service.call }.to change { Order.all.count }.by(1)
       end
 
-      it 'adds new order to db and changes existing address' do
+      it 'adds new order new address to db' do
+        params = { address: attributes_for(:address), reward_id: reward_post.id }
+        create_order_service = described_class.new(params, employee)
+        expect { create_order_service.call }.to change { Address.all.count }.by(1)
+      end
+
+      it 'adds changes existing address' do
         create(:address, employee: employee)
         params = { address: attributes_for(:address), reward_id: reward_post.id }
-        orders_count_before = Order.all.count
-        address_count_before = Address.all.count
-
         create_order_service = described_class.new(params, employee)
-        create_order_service.call
-
-        expect(Order.all.count).to eq(orders_count_before + 1)
-        expect(Address.all.count).to eq(address_count_before)
+        expect { create_order_service.call }.not_to change { Address.all.count }
       end
 
       it 'delivers confirmation email' do
@@ -108,12 +102,8 @@ RSpec.describe CreateOrderService do
 
       it 'adds new order to db' do
         params = { employee: employee, reward_id: reward_online.id }
-        orders_count_before = Order.all.count
-
         create_order_service = described_class.new(params, employee)
-        create_order_service.call
-
-        expect(Order.all.count).to eq(orders_count_before + 1)
+        expect { create_order_service.call }.to change { Order.all.count }.by(1)
       end
 
       it 'delivers online code' do
