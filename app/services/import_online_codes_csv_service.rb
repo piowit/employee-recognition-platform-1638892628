@@ -9,7 +9,7 @@ class ImportOnlineCodesCsvService
   end
 
   def call
-    return false unless check_file
+    return false unless file_format_csv?
 
     ActiveRecord::Base.transaction do
       import_csv
@@ -23,7 +23,7 @@ class ImportOnlineCodesCsvService
 
   private
 
-  def check_file
+  def file_format_csv?
     if @file.nil?
       @errors << 'No file selected.'
       return false
