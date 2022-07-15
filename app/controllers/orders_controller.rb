@@ -8,25 +8,25 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @reward = Reward.find(params[:reward])
-    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < @reward.price
+    reward = Reward.find(params[:reward])
+    return redirect_to rewards_path, notice: 'You have insufficient funds' if current_employee.points < reward.price
 
-    @employee = current_employee
-    @address = @employee.address.nil? ? Address.new(employee: @employee) : Address.where(employee: @employee).last
-    @order = Order.new(employee: @employee)
-    render 'new'
+    employee = current_employee
+    address = employee.address.nil? ? Address.new(employee: employee) : Address.where(employee: employee).last
+    order = Order.new(employee: @employee)
+    render 'new', locals: { order: order, reward: reward, address: address, employee: employee }
   end
 
   def create
-    @address = Address.new(order_params[:address])
-    @create_order_service = CreateOrderService.new(order_params, current_employee)
+    create_order_service = CreateOrderService.new(params: order_params, employee: current_employee)
 
-    if @create_order_service.call
+    if create_order_service.call
       redirect_to orders_path, notice: 'Reward bought'
     else
+      flash.now.notice = create_order_service.errors.join(', ')
       render 'new',
-             locals: { order: @create_order_service.order, reward: @create_order_service.reward, employee: current_employee },
-             notice: create_order_service.errors.join(', ')
+             locals: { order: create_order_service.order, reward: create_order_service.reward,
+                       address: create_order_service.address, employee: current_employee }
     end
   end
 

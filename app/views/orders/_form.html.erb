@@ -1,11 +1,11 @@
-<%= form_for @order, url: orders_path do |form| %>
-  
-  <div class="field">
-    Are you sure that you want to buy <%= reward.title %>?
-  </div>
+<div class="field">
+  Are you sure that you want to buy <%= reward.title %>?
+</div>
 
-    <% if @reward.delivery_method == 'post' %>
-      <%= form.fields_for @address do |builder_address| %>
+<%= form_for order, url: orders_path do |form| %>
+
+    <% if reward.delivery_method == 'post' %>
+      <%= form.fields_for address do |builder_address| %>
               <div class="field">
                 <%= builder_address.label 'Street: ', class: 'form-label' %>
                 <%= builder_address.text_field :street, class: 'form-control' %>
@@ -20,8 +20,8 @@
               </div>
       <% end %>
     <% end %>
-
-      <%= form.hidden_field :reward_id, value: @reward.id %>
+    
+    <%= form.hidden_field :reward_id, value: reward.id %>
   <div class="actions">
     <%= form.submit "Buy", class: 'btn btn-success' %>
   </div>
