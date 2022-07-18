@@ -45,3 +45,4 @@ yarn-debug.log*
 /coverage/.last_run.json
 /coverage/.resultset.json.lock
 coverage
+.DS_Store
