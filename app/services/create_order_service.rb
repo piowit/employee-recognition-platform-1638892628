@@ -70,7 +70,7 @@ class CreateOrderService
   def deliver_email
     return if @reward.post?
 
-    DeliveryOrderMailer.with(order: @order, code: @online_code.code).send_online_code_delivery_email.deliver
+    DeliveryOrderMailer.with(order: @order, code: @online_code.code).online_code_delivery_email.deliver
     @order.update!(delivered: true) if @order.reward_snapshot.delivery_method == 'online'
   end
 end
