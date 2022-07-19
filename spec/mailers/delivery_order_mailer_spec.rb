@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe DeliveryOrderMailer, type: :mailer do
   describe 'Delivery Order Confirmation' do
     let(:order) { create(:order) }
-    let(:mail) { described_class.with(order: order).send_delivery_confirmation_email }
+    let(:mail) { described_class.with(order: order).delivery_confirmation_email }
 
     it 'checks receiver email' do
       expect(mail.to).to have_content order.employee.email
