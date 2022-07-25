@@ -33,6 +33,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:reward_id, address: %i[street postcode city])
+    params.require(:order).permit(:reward_id, :delivery_type, address: %i[street postcode city])
   end
 end

@@ -3,11 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Order spec', type: :system do
-  before do
-    driven_by(:rack_test)
-    Bullet.raise = false
-  end
-
   let!(:employee) { create(:employee) }
   let!(:admin) { create(:admin_user) }
   let!(:kudo) { create(:kudo, giver: employee, receiver: employee) }

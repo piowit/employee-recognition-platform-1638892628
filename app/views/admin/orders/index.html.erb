@@ -8,6 +8,7 @@
       <tr>
         <th>Purchuase time</th>
         <th>Placed by</th>
+        <td>Type and address</td>
         <th>Title</th>
         <th>Description</th>
         <th>Price</th>
@@ -20,6 +21,7 @@
         <tr>
           <td><%= order.created_at.strftime("%d-%m-%y %H:%M") %></td>
           <td><%= order.employee.full_name %></td>
+          <td><%= order.type_and_address %></td>
           <td><%= order.reward_snapshot.title %></td>
           <td><%= order.reward_snapshot.description %></td>
           <td><%= order.reward_snapshot.price %></td>

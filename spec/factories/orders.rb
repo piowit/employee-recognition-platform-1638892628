@@ -5,5 +5,7 @@ FactoryBot.define do
     employee
     reward
     reward_snapshot { reward }
+    address_snapshot { build(:address) }
+    delivery_type { 'post' }
   end
 end

@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe CreateOrderService do
-  context 'when buying postal reward' do
+  context 'when buying postal reward by post' do
     it 'returns true when all params are correct and adds order to db' do
       employee = create(:employee)
       create(:kudo, receiver: employee) # add funds
       reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
-      params = { address: attributes_for(:address), reward_id: reward_post.id }
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'post' }
       before_orders_conut = Order.all.count
       create_order_service = CreateOrderService.new(params: params, employee: employee)
 
@@ -20,7 +20,7 @@ RSpec.describe CreateOrderService do
       employee = create(:employee)
       create(:kudo, receiver: employee) # add funds
       reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
-      params = { address: attributes_for(:address), reward_id: reward_post.id }
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'post' }
       create_order_service = CreateOrderService.new(params: params, employee: employee)
 
       expect { create_order_service.call }.to change { Order.all.count }.by(1)
@@ -30,7 +30,7 @@ RSpec.describe CreateOrderService do
       employee = create(:employee)
       create(:kudo, receiver: employee) # add funds
       reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
-      params = { address: attributes_for(:address), reward_id: reward_post.id }
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'post' }
       create_order_service = CreateOrderService.new(params: params, employee: employee)
 
       expect { create_order_service.call }.to change { Address.all.count }.by(1)
@@ -41,7 +41,7 @@ RSpec.describe CreateOrderService do
       create(:kudo, receiver: employee) # add funds
       create(:address, employee: employee) # add address to employee
       reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
-      params = { address: attributes_for(:address), reward_id: reward_post.id }
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'post' }
       create_order_service = CreateOrderService.new(params: params, employee: employee)
 
       expect { create_order_service.call }.not_to change { Address.all.count }
@@ -52,7 +52,7 @@ RSpec.describe CreateOrderService do
       employee = create(:employee)
       create(:kudo, receiver: employee) # add funds
       reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
-      params = { reward_id: reward_post.id }
+      params = { reward_id: reward_post.id, delivery_type: 'post' }
       create_order_service = CreateOrderService.new(params: params, employee: employee)
 
       expect(create_order_service.call).to be false
@@ -64,7 +64,7 @@ RSpec.describe CreateOrderService do
     it 'returns false when not enough funds' do
       employee = create(:employee)
       reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
-      params = { address: attributes_for(:address), reward_id: reward_post.id }
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'post' }
       create_order_service = CreateOrderService.new(params: params, employee: employee)
 
       expect(create_order_service.call).to be false
@@ -75,11 +75,56 @@ RSpec.describe CreateOrderService do
       employee = create(:employee)
       create(:kudo, receiver: employee) # add funds
       reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 0)
-      params = { address: attributes_for(:address), reward_id: reward_post.id }
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'post' }
       create_order_service = CreateOrderService.new(params: params, employee: employee)
 
       expect(create_order_service.call).to be false
       expect(create_order_service.errors.to_s).to include 'Not enough items in stock'
+    end
+  end
+
+  context 'when buying postal reward by pickup' do
+    it 'returns true when all params are correct and adds order to db' do
+      employee = create(:employee)
+      create(:kudo, receiver: employee) # add funds
+      reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
+      params = { reward_id: reward_post.id, delivery_type: 'pickup' }
+      before_orders_conut = Order.all.count
+      create_order_service = CreateOrderService.new(params: params, employee: employee)
+
+      expect(create_order_service.call).to be true
+      expect(Order.all.count).to eq before_orders_conut + 1
+    end
+
+    it 'adds new order to db' do
+      employee = create(:employee)
+      create(:kudo, receiver: employee) # add funds
+      reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
+      params = { reward_id: reward_post.id, delivery_type: 'pickup' }
+      create_order_service = CreateOrderService.new(params: params, employee: employee)
+
+      expect { create_order_service.call }.to change { Order.all.count }.by(1)
+    end
+
+    it "don't add new address when address is passed" do
+      employee = create(:employee)
+      create(:kudo, receiver: employee) # add funds
+      reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'pickup' }
+      create_order_service = CreateOrderService.new(params: params, employee: employee)
+
+      expect { create_order_service.call }.not_to change { Address.all.count }
+    end
+
+    it 'delivers pickup instructions via email after purchase' do
+      employee = create(:employee)
+      create(:kudo, receiver: employee) # add funds
+      reward_post = create(:reward, price: 1, delivery_method: 'post', available_items: 1)
+      params = { address: attributes_for(:address), reward_id: reward_post.id, delivery_type: 'pickup' }
+      create_order_service = CreateOrderService.new(params: params, employee: employee)
+
+      expect { create_order_service.call }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(ActionMailer::Base.deliveries.last).to eq DeliveryOrderMailer.with(order: create_order_service.order).pickup_delivery_email
     end
   end
 

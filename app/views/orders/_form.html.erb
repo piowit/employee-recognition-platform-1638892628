@@ -5,6 +5,9 @@
 <%= form_for order, url: orders_path do |form| %>
 
     <% if reward.delivery_method == 'post' %>
+      <%= form.label :delivery_type %>
+      <%= form.select :delivery_type, options_for_select(Order.delivery_types.map {|key, value| [key.titleize, Order.delivery_types.key(value)]}, order.delivery_type) %>
+      <br />While you select Pickup, there is no need to put address
       <%= form.fields_for address do |builder_address| %>
               <div class="field">
                 <%= builder_address.label 'Street: ', class: 'form-label' %>
