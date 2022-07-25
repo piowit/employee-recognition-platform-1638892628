@@ -23,11 +23,7 @@
       <tr>
         <td><%= order.created_at.strftime("%d-%m-%y %H:%M") %></td>
         <td><%= order.reward_snapshot.title %></td>
-        <td><% if order.reward_snapshot.delivery_method == 'post'%>
-          <%= "#{order.reward_snapshot.delivery_method}, #{order.address_snapshot.street} #{order.address_snapshot.postcode} #{order.address_snapshot.city}" %>
-        <% else %>
-          <%= order.reward_snapshot.delivery_method %>
-        <% end %></td>
+        <td><%= order.type_and_address %></td>
         <td><%= order.reward_snapshot.description %></td>
         <td><%= order.reward_snapshot.price %></td>
         <td><%= t order.delivered.to_s %></td>        

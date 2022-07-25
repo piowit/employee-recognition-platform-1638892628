@@ -4,14 +4,17 @@ class CreateOrderService
   attr_reader :errors, :order, :reward, :address
 
   def initialize(params:, employee:)
-    @order = Order.new(reward: @reward, reward_snapshot: @reward, address_snapshot: @address, employee: @employee)
     @reward = Reward.find(params[:reward_id])
     @employee = employee
 
-    @address = @employee.address || Address.new(employee: @employee)
+    @delivery_type = params[:delivery_type]
     @street = params.dig(:address, :street)
     @city = params.dig(:address, :city)
     @postcode = params.dig(:address, :postcode)
+    @address = @employee.address || Address.new(employee: @employee)
+
+    @order = Order.new(reward: @reward, reward_snapshot: @reward, address_snapshot: @address, employee: @employee,
+                       delivery_type: @delivery_type)
 
     @errors = []
   end
@@ -51,11 +54,11 @@ class CreateOrderService
   end
 
   def update_address
-    @address.update!(city: @city, postcode: @postcode, street: @street, last_used: Time.current)
+    @address.update!(city: @city, postcode: @postcode, street: @street, last_used: Time.current) if @order.post?
   end
 
   def create_order
-    @order.update!(reward: @reward, reward_snapshot: @reward, address_snapshot: @address, employee: @employee)
+    @order.update!(reward: @reward, reward_snapshot: @reward, address_snapshot: @address, employee: @employee, delivery_type: @delivery_type)
   end
 
   def decrease_item_stock
@@ -68,9 +71,13 @@ class CreateOrderService
   end
 
   def deliver_email
-    return if @reward.post?
+    return if @order.post?
 
-    DeliveryOrderMailer.with(order: @order, code: @online_code.code).online_code_delivery_email.deliver
-    @order.update!(delivered: true) if @order.reward_snapshot.delivery_method == 'online'
+    if @reward.online?
+      DeliveryOrderMailer.with(order: @order, code: @online_code.code).online_code_delivery_email.deliver
+      @order.update!(delivered: true)
+    end
+
+    return DeliveryOrderMailer.with(order: @order).pickup_delivery_email.deliver if @order.pickup?
   end
 end
