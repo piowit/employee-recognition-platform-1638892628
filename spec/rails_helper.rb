@@ -10,7 +10,11 @@ require 'rspec/rails'
 require 'support/devise'
 require 'pundit/rspec'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  enable_coverage :branch
+  primary_coverage :branch
+  add_filter %r{^/spec/}
+end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

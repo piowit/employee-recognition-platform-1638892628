@@ -3,7 +3,6 @@
 class KudosController < ApplicationController
   before_action :set_kudo, only: %i[show edit update destroy]
   before_action :authenticate_employee!
-  before_action :check_kudo_giver, only: %i[edit update destroy]
 
   def index
     @kudos = Kudo.includes(:company_value, :giver, :receiver)
@@ -55,10 +54,6 @@ class KudosController < ApplicationController
     authorize @kudo
     @kudo.destroy
     redirect_to kudos_url, notice: 'Kudo was successfully destroyed.'
-  end
-
-  def check_kudo_giver
-    redirect_to kudos_path, notice: 'You are not authorized to edit this kudo.' unless @kudo.giver == current_employee
   end
 
   private

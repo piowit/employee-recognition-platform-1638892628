@@ -55,7 +55,7 @@ module Admin
       import_service = ImportOnlineCodesCsvService.new(params)
 
       if import_service.call
-        redirect_to admin_online_codes_path, notice: 'Rewards imported.'
+        redirect_to admin_online_codes_path, notice: 'Online codes imported.'
       else
         redirect_to admin_online_codes_path, notice: import_service.errors.join(', ')
       end
